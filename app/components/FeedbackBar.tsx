@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useFeedback } from "./FeedbackContext";
 
-function ChatIcon() {
+function ChatIcon({ className = "" }: { className?: string }) {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -11,7 +12,7 @@ function ChatIcon() {
       strokeWidth={1.7}
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="h-5 w-5"
+      className={className}
     >
       <path d="M20 14.5a2 2 0 0 1-2 2H8.5L5 19.5v-13a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2z" />
       <path d="M9 9.5h7" />
@@ -36,58 +37,113 @@ function ChevronUp({ className = "" }: { className?: string }) {
   );
 }
 
-function CheckCircle() {
+function SendIcon({ className = "" }: { className?: string }) {
   return (
     <svg
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth={1.8}
+      strokeWidth={1.7}
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="h-5 w-5"
+      className={className}
     >
-      <circle cx="12" cy="12" r="9" />
-      <path d="M8.5 12.5l2.5 2.5 4.5-5" />
+      <path d="M22 2 11 13" />
+      <path d="M22 2 15 22l-4-9-9-4 20-7z" />
     </svg>
   );
 }
 
+function Spinner({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" className={`animate-spin ${className}`}>
+      <circle
+        cx="12"
+        cy="12"
+        r="9"
+        stroke="currentColor"
+        strokeOpacity="0.3"
+        strokeWidth="2.5"
+      />
+      <path
+        d="M21 12a9 9 0 0 0-9-9"
+        stroke="currentColor"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+type Result = { kind: "success" | "error"; msg: string } | null;
+
 export default function FeedbackBar() {
-  const [open, setOpen] = useState(false);
-  const [text, setText] = useState("");
-  const [sent, setSent] = useState(false);
+  const { open, setOpen, text, setText, focusSignal } = useFeedback();
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState<Result>(null);
+  const [showResult, setShowResult] = useState(false);
+  const timers = useRef<number[]>([]);
+  const taRef = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => () => timers.current.forEach(clearTimeout), []);
+
+  // Focus the textarea (cursor at end) whenever the panel opens or feedback is
+  // requested from elsewhere (e.g. the "Ne slažem se" button on the result).
+  useEffect(() => {
+    if (!open) return;
+    const ta = taRef.current;
+    if (ta) {
+      ta.focus();
+      ta.setSelectionRange(ta.value.length, ta.value.length);
+    }
+  }, [open, focusSignal]);
 
   const submit = () => {
-    if (!text.trim()) return;
-    // Wiring to email comes later — for now we just acknowledge.
-    setSent(true);
-    setText("");
+    if (!text.trim() || loading) return;
+    timers.current.forEach(clearTimeout);
+    timers.current = [];
+    setLoading(true);
+    setShowResult(false);
+    // Simulate the request (no backend yet — always succeeds for now).
+    timers.current.push(
+      window.setTimeout(() => {
+        setLoading(false);
+        setResult({ kind: "success", msg: "Hvala! Zaprimili smo vašu poruku." });
+        setShowResult(true);
+        setText("");
+        timers.current.push(window.setTimeout(() => setShowResult(false), 5000));
+      }, 1000),
+    );
   };
+
+  // Title + arrow are muted by default and take the emphasised ink colour on
+  // hover or while open — which signals the bar is interactive.
+  const emphasis = open ? "text-ink" : "text-muted group-hover:text-ink";
 
   return (
     <div className="fixed inset-x-0 bottom-0 z-40">
       <div className="mx-auto w-full max-w-2xl overflow-hidden rounded-t-2xl border border-b-0 border-line bg-surface/95 shadow-[0_-10px_40px_-15px_rgba(0,0,0,0.22)] backdrop-blur">
         <button
           type="button"
-          onClick={() => setOpen((o) => !o)}
+          onClick={() => setOpen(!open)}
           aria-expanded={open}
           aria-controls="kd-feedback-panel"
-          className="flex w-full items-center gap-3 px-4 py-3 text-left"
+          className="group flex w-full items-center gap-2.5 px-4 py-3 text-left text-sm"
         >
           <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent">
-            <ChatIcon />
+            <ChatIcon className="h-5 w-5" />
           </span>
-          <span className="min-w-0 flex-1">
-            <span className="block text-sm font-semibold text-ink">
-              Povratna informacija
-            </span>
-            <span className="block truncate text-xs text-muted">
-              nešto nedostaje ili nije točno?
-            </span>
+          <span className={`font-semibold transition-colors ${emphasis}`}>
+            Povratna informacija
+          </span>
+          <span aria-hidden className="text-muted/50">
+            ·
+          </span>
+          <span className="min-w-0 truncate text-muted">
+            nešto nedostaje ili nije točno?
           </span>
           <ChevronUp
-            className={`h-5 w-5 shrink-0 text-muted transition-transform duration-300 ${
+            className={`ml-auto h-4 w-4 shrink-0 transition-[transform,color] duration-300 ${emphasis} ${
               open ? "rotate-180" : ""
             }`}
           />
@@ -99,43 +155,51 @@ export default function FeedbackBar() {
           style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
         >
           <div className="overflow-hidden">
-            <div className="border-t border-line px-4 py-4">
-              {sent ? (
-                <div className="animate-fade-in flex items-center gap-2 py-2 text-sm font-medium text-accent">
-                  <CheckCircle />
-                  <span>Hvala! Zaprimili smo vašu poruku.</span>
-                  <button
-                    type="button"
-                    onClick={() => setSent(false)}
-                    className="ml-auto text-xs font-semibold text-muted transition-colors hover:text-ink"
-                  >
-                    Pošalji još jednu
-                  </button>
-                </div>
-              ) : (
-                <>
+            <div className="px-4 pb-4">
+              <div className="flex items-end gap-2.5">
+                {/* Border/rounding live on the wrapper with overflow-hidden so the
+                    textarea's scrollbar is clipped to the rounded corners. */}
+                <div className="flex-1 overflow-hidden rounded-xl border border-line bg-paper transition-colors focus-within:border-accent">
                   <textarea
+                    ref={taRef}
                     value={text}
                     onChange={(e) => setText(e.target.value)}
                     rows={3}
                     placeholder="Npr. za ovu prigodu ili odnos iznos bi trebao biti veći jer…"
-                    className="w-full resize-none rounded-xl border border-line bg-paper px-3.5 py-3 text-sm leading-relaxed text-ink outline-none transition-colors placeholder:text-muted/70 focus:border-accent"
+                    className="block min-h-24 w-full resize-none bg-transparent px-3.5 py-3 text-sm leading-relaxed text-ink outline-none placeholder:text-muted/70"
                   />
-                  <div className="mt-3 flex items-center justify-between gap-3">
-                    <span className="text-xs text-muted">
-                      Vaš prijedlog šalje se izravno nama.
-                    </span>
-                    <button
-                      type="button"
-                      onClick={submit}
-                      disabled={!text.trim()}
-                      className="rounded-xl bg-accent px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-accent-strong disabled:cursor-not-allowed disabled:opacity-40"
+                </div>
+                <button
+                  type="button"
+                  onClick={submit}
+                  disabled={loading || !text.trim()}
+                  aria-label="Pošalji"
+                  className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-accent text-white transition-colors hover:bg-accent-strong ${
+                    loading ? "cursor-wait" : "disabled:cursor-not-allowed disabled:opacity-40"
+                  }`}
+                >
+                  {loading ? <Spinner className="h-5 w-5" /> : <SendIcon className="h-5 w-5" />}
+                </button>
+              </div>
+
+              {/* Result line — animates open to make room, fades in, then out after 5s */}
+              <div
+                className="grid transition-[grid-template-rows] duration-300 ease-out"
+                style={{ gridTemplateRows: showResult ? "1fr" : "0fr" }}
+                aria-live="polite"
+              >
+                <div className="overflow-hidden">
+                  {result && (
+                    <p
+                      className={`pt-2.5 text-[13px] font-medium transition-opacity duration-300 ${
+                        showResult ? "opacity-100" : "opacity-0"
+                      } ${result.kind === "error" ? "text-red-600" : "text-accent"}`}
                     >
-                      Pošalji
-                    </button>
-                  </div>
-                </>
-              )}
+                      {result.msg}
+                    </p>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
         </div>

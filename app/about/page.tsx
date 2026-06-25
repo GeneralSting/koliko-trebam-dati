@@ -47,9 +47,6 @@ export default function AboutPage() {
             href="/"
             className="group inline-flex items-center gap-1.5 text-sm font-semibold text-muted transition-colors hover:text-ink"
           >
-            <span className="transition-transform duration-200 group-hover:-translate-x-0.5">
-              ←
-            </span>
             Natrag na kalkulator
           </Link>
           <Image
