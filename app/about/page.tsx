@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Kako funkcionira? — Koliko Trebam Dati?",
+  title: "Kako funkcionira? - Koliko Trebam Dati?",
   description:
     "Saznajte kako Koliko Trebam Dati? računa preporučeni iznos darivanja na temelju prigode i vašeg odnosa s primateljem.",
 };
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 const STEPS = [
   {
     title: "Odaberite prigodu",
-    body: "Najprije birate vrstu događaja — od obiteljskih slavlja i jubileja do obrazovanja, karijere i ostalih prigoda.",
+    body: "Najprije birate vrstu događaja - od obiteljskih slavlja i jubileja do obrazovanja, karijere i ostalih prigoda.",
   },
   {
     title: "Odaberite svoj odnos",
@@ -42,38 +42,22 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen pb-20">
       <div className="mx-auto max-w-2xl px-6 py-10 sm:py-14">
-        <div className="animate-fade-up flex items-center justify-between">
-          <Link
-            href="/"
-            className="group inline-flex items-center gap-1.5 text-sm font-semibold text-muted transition-colors hover:text-ink"
-          >
-            Natrag na kalkulator
-          </Link>
-          <Image
-            src="/cro-flag.png"
-            alt="Hrvatska zastava"
-            width={30}
-            height={30}
-            className="shrink-0"
-          />
-        </div>
-
         <header
           className="animate-fade-up mt-10"
           style={{ animationDelay: "60ms" }}
         >
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
+          <p className="text-sm font-semibold uppercase tracking-[0.16em] text-accent">
             Kako funkcionira
           </p>
-          <h1 className="mt-2 font-display text-3xl font-extrabold tracking-tight sm:text-4xl">
+          <h1 className="font-display text-3xl font-extrabold tracking-tight sm:text-4xl">
             Preporuka u tri koraka
           </h1>
-          <p className="mt-4 text-[15px] leading-relaxed text-muted">
+          <p className="mt-4 leading-relaxed text-muted">
             <strong className="font-semibold text-ink">
               Koliko Trebam Dati?
             </strong>{" "}
             pomaže vam da brzo procijenite primjeren iznos novčanog poklona za
-            hrvatske prigode — bez nagađanja i neugode. Sve se svodi na dvije
+            hrvatske prigode - bez nagađanja i neugode. Sve se svodi na dvije
             stvari: <em className="not-italic font-medium text-ink">prigodu</em>{" "}
             i vaš <em className="not-italic font-medium text-ink">odnos</em> s
             primateljem.
@@ -87,12 +71,12 @@ export default function AboutPage() {
               className="animate-fade-up flex gap-4 rounded-2xl border border-line bg-surface p-5 shadow-sm"
               style={{ animationDelay: `${120 + i * 70}ms` }}
             >
-              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent/10 font-display text-sm font-bold text-accent">
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent/10 font-display font-bold text-accent">
                 {i + 1}
               </span>
               <div>
                 <h2 className="font-display text-base font-bold">{s.title}</h2>
-                <p className="mt-1 text-sm leading-relaxed text-muted">
+                <p className="mt-1 text-[15px] leading-relaxed text-muted">
                   {s.body}
                 </p>
               </div>
@@ -108,8 +92,8 @@ export default function AboutPage() {
           <div className="mt-4 space-y-5">
             {NOTES.map((n) => (
               <div key={n.title}>
-                <h3 className="text-sm font-semibold text-ink">{n.title}</h3>
-                <p className="mt-1 text-sm leading-relaxed text-muted">
+                <h3 className="font-semibold text-ink">{n.title}</h3>
+                <p className="mt-1 leading-relaxed text-[15px] text-muted">
                   {n.body}
                 </p>
               </div>
@@ -123,10 +107,9 @@ export default function AboutPage() {
         >
           <Link
             href="/"
-            className="inline-flex items-center gap-2 rounded-xl bg-accent px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-accent-strong"
+            className="inline-flex items-center gap-2 rounded-xl bg-accent px-5 py-3 font-semibold text-white transition-colors hover:bg-accent-strong"
           >
             Otvori kalkulator
-            <span aria-hidden>→</span>
           </Link>
         </div>
       </div>

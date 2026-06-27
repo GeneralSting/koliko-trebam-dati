@@ -1,14 +1,7 @@
-import type { EventType } from "../lib/events";
+import Image from "next/image";
+import { EventCardProps } from "../types";
 
-export default function EventCard({
-  event,
-  onSelect,
-  index,
-}: {
-  event: EventType;
-  onSelect: () => void;
-  index: number;
-}) {
+export default function EventCard({ event, index, onSelect }: EventCardProps) {
   return (
     <div
       className="animate-fade-up"
@@ -19,11 +12,13 @@ export default function EventCard({
         onClick={onSelect}
         className="relative aspect-4/5 max-h-80 min-h-60 w-full rounded-2xl text-left shadow-md outline-none transition-shadow duration-200 ease-out hover:shadow-xl focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
       >
-        {/* Background image — rounded directly (no overflow-hidden) to avoid the
-            antialiasing seam Chrome leaves on a clipped rounded corner. */}
-        <span
-          className="absolute inset-0 rounded-2xl bg-cover bg-center"
-          style={{ backgroundImage: `url(${event.image})` }}
+        <Image
+          src={event.image}
+          alt=""
+          fill
+          fetchPriority="high"
+          sizes="(min-width: 1024px) 256px, 50vw"
+          className="rounded-2xl object-cover"
         />
         {/* Bottom shade for title legibility */}
         <span

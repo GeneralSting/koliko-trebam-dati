@@ -1,18 +1,5 @@
-export interface EventType {
-  id: string;
-  title: string;
-  /** Full-bleed background image for the card. */
-  image: string;
-  /** Solid colour shown behind the image (matches the image's deepest tone). */
-  fallback: string;
-}
+import { EventType, Option } from "../types";
 
-export interface Option {
-  id: string;
-  title: string;
-}
-
-// Hardcoded for now — values/copy will be tuned later from real data + feedback.
 export const EVENT_TYPES: EventType[] = [
   {
     id: "obiteljska-slavlja",
@@ -40,7 +27,6 @@ export const EVENT_TYPES: EventType[] = [
   },
 ];
 
-// Step 2 — concrete events within each event type (placeholder data).
 export const EVENTS: Record<string, Option[]> = {
   "obiteljska-slavlja": [
     { id: "vjencanje", title: "Vjenčanje" },
