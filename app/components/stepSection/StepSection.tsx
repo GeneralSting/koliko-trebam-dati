@@ -1,6 +1,11 @@
 "use client";
 
-import { EVENT_TYPES, EVENTS, RELATIONS } from "@/app/lib/events";
+import {
+  EVENT_TYPES,
+  EVENTS,
+  getRelationOptions,
+  relationTitle,
+} from "@/app/lib/events";
 import { getResult } from "@/app/lib/results";
 import { STEP_LABELS, STEP_META } from "@/app/lib/steps";
 import { Option, StepSectionProps } from "@/app/types";
@@ -17,22 +22,29 @@ export default function StepSection({ onRequestFeedback }: StepSectionProps) {
 
   // --- DATA COMPUTATION ---
   const eventTypeId = selections[0];
+  const eventId = selections[1];
   const stepEvents = useMemo(
     () => (eventTypeId ? (EVENTS[eventTypeId] ?? []) : []),
     [eventTypeId],
   );
 
+  // Relationships depend on the chosen event (e.g. weddings have a "kum").
+  const stepRelations = useMemo(
+    () => (eventId ? getRelationOptions(eventId) : []),
+    [eventId],
+  );
+
   const stepOptions = useMemo((): Option[] => {
     if (step === 1) return stepEvents;
-    if (step === 2) return RELATIONS;
+    if (step === 2) return stepRelations;
     return [];
-  }, [step, stepEvents]);
+  }, [step, stepEvents, stepRelations]);
 
   const getSelectedTitle = (index: number) => {
     const id = selections[index];
     if (index === 0) return EVENT_TYPES.find((e) => e.id === id)?.title ?? "";
     if (index === 1) return stepEvents.find((e) => e.id === id)?.title ?? "";
-    return RELATIONS.find((e) => e.id === id)?.title ?? "";
+    return id ? relationTitle(eventId, id) : "";
   };
 
   // --- HANDLERS ---

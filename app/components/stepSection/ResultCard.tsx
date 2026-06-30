@@ -9,7 +9,10 @@ export default function ResultCard({
   onDisagree,
 }: ResultCardProps) {
   return (
-    <div className="animate-fade-up rounded-2xl border border-line bg-surface p-6 shadow-sm sm:p-8">
+    <div className="animate-fade-up relative rounded-2xl border border-line bg-surface p-6 shadow-sm sm:p-8">
+      <p className="absolute right-6 top-6 max-w-[42%] text-right text-[12px] italic leading-snug text-muted/70 sm:right-8 sm:top-8">
+        Darujte u skladu sa svojim mogućnostima
+      </p>
       <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
         Preporučeni iznos
       </p>
