@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -42,10 +41,7 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen pb-20">
       <div className="mx-auto max-w-2xl px-6 py-10 sm:py-14">
-        <header
-          className="animate-fade-up mt-10"
-          style={{ animationDelay: "60ms" }}
-        >
+        <header className="animate-fade-up mt-10">
           <p className="text-sm font-semibold uppercase tracking-[0.16em] text-accent">
             Kako funkcionira
           </p>
