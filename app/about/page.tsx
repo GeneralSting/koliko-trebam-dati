@@ -41,7 +41,7 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen pb-20">
       <div className="mx-auto max-w-2xl px-6 py-10 sm:py-14">
-        <header className="animate-fade-up mt-10">
+        <header className="mt-10">
           <p className="text-sm font-semibold uppercase tracking-[0.16em] text-accent">
             Kako funkcionira
           </p>
