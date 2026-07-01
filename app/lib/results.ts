@@ -651,7 +651,7 @@ export const RESULTS: Record<string, Record<string, GiftResult>> = {
       ],
     },
     kum: {
-      amount: "100 – 200 €",
+      amount: "50 – 100 €",
       notes: [
         "Kumovi tradicionalno izdašno nagrađuju maturante. Novčana kuverta u ovom rasponu smatra se izrazito pristojnim i primjerenim darom.",
       ],
@@ -720,7 +720,6 @@ export const RESULTS: Record<string, Record<string, GiftResult>> = {
       amount: "150 – 500 €",
       notes: [
         "Roditelji često daruju najveće iznose za diplomu, tretirajući to kao kapitalnu pomoć djetetu za prve samostalne korake i traženje posla.",
-        "Ponekad se novac zamjenjuje za kupnju profesionalnog prijenosnog računala.",
       ],
     },
     "brat-sestra": {
@@ -742,33 +741,8 @@ export const RESULTS: Record<string, Record<string, GiftResult>> = {
       ],
     },
     prijatelj: {
-      amount: "30 – 50 €",
-      notes: [
-        "Prijatelji obično ne daruju velike iznose novca.",
-        "Mnogo je popularnije pokloniti dizajnersku platnenu torbu (tote bag) s unikatnim ilustracijama ili organizirati zajednički izlazak na piće.",
-      ],
-    },
-  },
-
-  "novi-posao": {
-    partner: {
-      amount: "Čašćenje / Poklon",
-      notes: [
-        "Dobivanje novog posla slavi se zajedničkom večerom ili bocom dobrog pjenušca.",
-        "Partner obično daruje sitnicu za novi ured (npr. personaliziranu termosicu ili kožni planer).",
-      ],
-    },
-    prijatelj: {
-      amount: "Simboličan Poklon / Cuga",
-      notes: [
-        "Prijatelju se čestita na novom poslu zajedničkim odlaskom na piće koje vi plaćate, ili mu se poklanja planer, šalica s duhovitim natpisom ili čokolada.",
-      ],
-    },
-    roditelj: {
-      amount: "Čestitka / Sitnica",
-      notes: [
-        "Roditelji djetetu čestitaju na novom poslu svečanim obiteljskim ručkom i toplom čestitkom s podrškom za novi početak.",
-      ],
+      amount: "Poklon / 30 – 50 €",
+      notes: ["Prijatelji obično ne daruju velike iznose novca."],
     },
   },
 
@@ -805,14 +779,14 @@ export const RESULTS: Record<string, Record<string, GiftResult>> = {
     kolega: {
       amount: "10 – 20 € (Skupno u uredu)",
       notes: [
-        "U većini hrvatskih tvrtki, odlazak u mirovinu prati skupljanje doprinosa u uredu (3 do 5 € po osobi).",
-        "Zajednički prikupljeni iznos koristi se za kupnju kvalitetnog ručnog sata, umjetničke slike ili poklon-bona za putovanje.",
+        "U većini hrvatskih tvrtki, odlazak u mirovinu prati skupljanje doprinosa u uredu.",
+        "Zajednički prikupljeni iznos koristi se za kupnju kvalitetnog poklona.",
       ],
     },
     prijatelj: {
       amount: "Poklon / 20 – 50 €",
       notes: [
-        "Prijatelju koji odlazi u mirovinu daruje se nešto što odražava njegove interese (vrtlarenje, ribolov, čitanje) ili prigodna boca vrhunskog pića.",
+        "Prijatelju koji odlazi u mirovinu daruje se nešto što odražava njegove interese.",
       ],
     },
   },
@@ -823,7 +797,7 @@ export const RESULTS: Record<string, Record<string, GiftResult>> = {
 
   "selidba-inozemstvo": {
     roditelj: {
-      amount: "Poklon / Džeparac (100 – 300 €)",
+      amount: "Poklon / (100 – 300 €)",
       notes: [
         "Odlazak djeteta u inozemstvo roditeljima je emotivno težak.",
         "Daruju mu praktične stvari za put ili kuvertu s gotovinom (džeparac) kako bi mu olakšali prve dane u novoj državi.",
@@ -832,7 +806,7 @@ export const RESULTS: Record<string, Record<string, GiftResult>> = {
     "brat-sestra": {
       amount: "Poklon / 50 – 100 €",
       notes: [
-        "Braća i sestre daruju personalizirane poklone koji će iseljenika podsjećati na dom (npr. uokvirena obiteljska slika ili retro drveni transfer zajedničke fotografije).",
+        "Braća i sestre daruju personalizirane poklone koji će iseljenika podsjećati na dom (npr. uokvirena obiteljska slika).",
       ],
     },
     prijatelj: {
@@ -842,9 +816,9 @@ export const RESULTS: Record<string, Record<string, GiftResult>> = {
       ],
     },
     kolega: {
-      amount: "Zajednički Poklon (10 – 20 €)",
+      amount: "(10 – 20 €) (Skupno u uredu)",
       notes: [
-        "Kolege s posla skupljaju simboličan iznos u uredu za zajednički poklon povodom oproštaja (npr. kvalitetan putni kovčeg ili kožni novčanik).",
+        "Kolege s posla skupljaju simboličan iznos u uredu za zajednički poklon povodom oproštaja.",
       ],
     },
   },
@@ -866,7 +840,7 @@ export const RESULTS: Record<string, Record<string, GiftResult>> = {
     "brat-sestra": {
       amount: "100 – 300 €",
       notes: [
-        "Braća i sestre daruju iznose koji su najčešće usmjereni na kupnju točno određenog uređaja za novi dom (npr. televizor ili mikrovalna pećnica).",
+        "Braća i sestre daruju iznose koji su najčešće usmjereni na kupnju točno određenog uređaja za novi dom (npr. televizor).",
       ],
     },
   },
@@ -918,26 +892,18 @@ export const RESULTS: Record<string, Record<string, GiftResult>> = {
         "Zajednički pokloni učiteljicama na kraju 4. ili 8. razreda osnovne škole, odnosno na kraju srednje škole, uobičajena su praksa u Hrvatskoj.",
         "Svi roditelji u razredu skupljaju po 5 do 15 € kako bi se formirao proračun od 150 do 300 €.",
         "Zakon o sprječavanju sukoba interesa i etički kodeksi javnih službi brane javnim djelatnicima (uključujući učitelje i profesore) primanje pojedinačnih darova velike vrijednosti (zakonski limit za pojedinačni dar je do 66,36 € / 500 HRK).",
-        "Zajednički prikupljeni proračun koristi se za kupnju bonova (npr. za wellness ili omiljenu trgovinu), kvalitetnog kožnog novčanika, ručnog sata ili uokvirenog albuma s porukama i crtežima djece.",
       ],
     },
-    dijete: {
+    učenik: {
       amount: "Simboličan Poklon",
       notes: [
-        "Ako dijete želi samostalno zahvaliti učiteljici, odgojiteljici u vrtiću ili profesoru, poklon mora biti isključivo simbolične vrijednosti.",
-        "Domaći kolači, ručno nacrtana čestitka, jedna ruža, čokolada ili knjiga s posvetom djeteta najtopliji su i društveno najprihvatljiviji darovi zbog kojih se nitko neće osjećati neugodno.",
+        "Ako učenik želi samostalno zahvaliti učiteljici, odgojiteljici u vrtiću ili profesoru, poklon mora biti isključivo simbolične vrijednosti.",
+        "Zakon o sprječavanju sukoba interesa i etički kodeksi javnih službi brane javnim djelatnicima (uključujući učitelje i profesore) primanje pojedinačnih darova velike vrijednosti (zakonski limit za pojedinačni dar je do 66,36 € / 500 HRK).",
       ],
     },
   },
 
   sprovod: {
-    roditelj: {
-      amount: "100 – 200 €",
-      notes: [
-        "Uža obitelj pokojnika izdvaja veće iznose radi solidarnog pokrivanja iznimno visokih troškova pogrebnih usluga u Hrvatskoj.",
-        "Novčani prilog predaje se diskretno u kuverti prije ili nakon samog pokopa.",
-      ],
-    },
     "brat-sestra": {
       amount: "100 – 150 €",
       notes: [
@@ -959,7 +925,7 @@ export const RESULTS: Record<string, Record<string, GiftResult>> = {
       ],
     },
     kolega: {
-      amount: "20 – 50 €",
+      amount: "20 – 50 € (Skupno u uredu)",
       notes: [
         "U uredima je uobičajeno skupljanje zajedničkog priloga za vijenac ili za kuvertu pomoći obitelji kolege koji je doživio smrtni slučaj u užoj obitelji.",
       ],

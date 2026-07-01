@@ -55,7 +55,6 @@ export const EVENTS: Record<string, Option[]> = {
     { id: "maturalna-zabava", title: "Maturalna zabava" },
     { id: "upis-fakultet", title: "Upis na fakultet" },
     { id: "diploma", title: "Diploma" },
-    { id: "novi-posao", title: "Novi posao" },
     { id: "promaknuce", title: "Promaknuće" },
     { id: "umirovljenje", title: "Umirovljenje" },
   ],

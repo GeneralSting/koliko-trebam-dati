@@ -20,6 +20,7 @@ export default function FeedbackBar({ ref }: FeedbackBarProps) {
   // --- REFS LAYER ---
   const timers = useRef<number[]>([]);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const honeypotRef = useRef<HTMLInputElement>(null);
 
   // --- IMPERATIVE API ---
   useImperativeHandle(
@@ -51,7 +52,7 @@ export default function FeedbackBar({ ref }: FeedbackBarProps) {
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) =>
     setText(e.target.value);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!text.trim() || loading) return;
 
     timers.current.forEach(clearTimeout);
@@ -59,21 +60,29 @@ export default function FeedbackBar({ ref }: FeedbackBarProps) {
     setLoading(true);
     setShowResult(false);
 
-    timers.current.push(
-      window.setTimeout(() => {
-        setLoading(false);
-        setResult({
-          kind: "success",
-          msg: "Hvala! Zaprimili smo vašu poruku.",
-        });
-        setShowResult(true);
-        setText("");
+    try {
+      const res = await fetch("/api/feedback", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          message: text,
+          company: honeypotRef.current?.value ?? "",
+        }),
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
-        timers.current.push(
-          window.setTimeout(() => setShowResult(false), 5000),
-        );
-      }, 1000),
-    );
+      setResult({ kind: "success", msg: "Hvala! Zaprimili smo vašu poruku." });
+      setText(""); // Clear only on success so a failed send can be retried.
+    } catch {
+      setResult({
+        kind: "error",
+        msg: "Slanje nije uspjelo. Pokušajte ponovno.",
+      });
+    } finally {
+      setLoading(false);
+      setShowResult(true);
+      timers.current.push(window.setTimeout(() => setShowResult(false), 5000));
+    }
   };
 
   // --- COMPUTED UI VALUES ---
@@ -109,6 +118,17 @@ export default function FeedbackBar({ ref }: FeedbackBarProps) {
         >
           <div className="overflow-hidden">
             <div className="px-4 pb-4">
+              {/* Honeypot: hidden from users, bots that fill it are dropped. */}
+              <input
+                ref={honeypotRef}
+                type="text"
+                name="company"
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                className="hidden"
+              />
+
               <FeedbackForm
                 text={text}
                 isLoading={loading}
