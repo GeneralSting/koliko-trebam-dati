@@ -2,6 +2,8 @@
 
 # dependencies
 /node_modules
+# this project uses pnpm; keep npm's lockfile out to avoid package-manager conflicts
+package-lock.json
 /.pnp
 .pnp.*
 .yarn/*
