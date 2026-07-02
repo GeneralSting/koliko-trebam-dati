@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useRef } from "react";
-import { FeedbackHandle } from "../types";
+import { FeedbackContext, FeedbackHandle } from "../types";
 import StepSection from "./stepSection/StepSection";
 import FeedbackBar from "./feedback/FeedbackBar";
 
@@ -13,9 +13,12 @@ export default function Calculator() {
    */
   const feedbackRef = useRef<FeedbackHandle>(null);
 
-  const requestFeedback = useCallback((prefill: string) => {
-    feedbackRef.current?.requestFeedback(prefill);
-  }, []);
+  const requestFeedback = useCallback(
+    (prefill: string, context?: FeedbackContext) => {
+      feedbackRef.current?.requestFeedback(prefill, context);
+    },
+    [],
+  );
 
   return (
     <>

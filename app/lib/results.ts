@@ -885,6 +885,17 @@ export const RESULTS: Record<string, Record<string, GiftResult>> = {
     },
   },
 
+  "blagoslov-kuce": {
+    svecenik: {
+      amount: "10 – 50 €",
+      notes: [
+        "Dobrovoljni novčani prilog (milodar) za župu tradicionalno se priprema na stolu uz križ, blagoslovljenu vodu i svijeću.",
+        "Iznos u rasponu ovisi prvenstveno o broju članova u kućanstvu, njihovoj starosti te financijskoj sposobnosti (npr. samci i umirovljenici s manjim primanjima dat će 10 – 20 €, dok veće radno sposobne obitelji obično izdvajaju 20 – 50 €).",
+        "Ministrantima u pratnji daruje se 5 – 10 €, a lijepa je gesta ponuditi ih i kolačima / pićem.",
+      ],
+    },
+  },
+
   "zahvala-uciteljici": {
     "skupno-razred": {
       amount: "5 – 15 € (Po učeniku)",

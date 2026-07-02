@@ -19,7 +19,7 @@ export default function EventCard({ event, index, onSelect }: EventCardProps) {
           fetchPriority="high"
           sizes="(min-width: 1024px) 256px, 50vw"
           quality={90}
-          className="rounded-2xl object-cover"
+          className={"rounded-2xl object-cover -mt-4"}
         />
         {/* Bottom shade for title legibility */}
         <span

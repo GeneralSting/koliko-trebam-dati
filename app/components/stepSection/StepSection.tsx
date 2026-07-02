@@ -1,70 +1,43 @@
 "use client";
 
-import {
-  EVENT_TYPES,
-  EVENTS,
-  getRelationOptions,
-  relationTitle,
-} from "@/app/lib/events";
-import { getResult } from "@/app/lib/results";
 import { STEP_LABELS, STEP_META } from "@/app/lib/steps";
-import { Option, StepSectionProps } from "@/app/types";
-import { useState, useMemo } from "react";
+import { StepSectionProps } from "@/app/types";
+import { useStepFlow } from "../../hooks/useStepFlow";
 import StepNavigation from "./StepNavigation";
 import StepHeader from "./StepHeader";
-import OptionCard from "./OptionCard";
+import SearchBar from "./SearchBar";
+import SearchResults from "./SearchResults";
+import EventTypeGrid from "./EventTypeGrid";
+import OptionGrid from "./OptionGrid";
 import ResultCard from "./ResultCard";
-import EventCard from "../EventCard";
 
 export default function StepSection({ onRequestFeedback }: StepSectionProps) {
-  const [selections, setSelections] = useState<string[]>([]);
-  const step = selections.length;
-
-  // --- DATA COMPUTATION ---
-  const eventTypeId = selections[0];
-  const eventId = selections[1];
-  const stepEvents = useMemo(
-    () => (eventTypeId ? (EVENTS[eventTypeId] ?? []) : []),
-    [eventTypeId],
-  );
-
-  // Relationships depend on the chosen event (e.g. weddings have a "kum").
-  const stepRelations = useMemo(
-    () => (eventId ? getRelationOptions(eventId) : []),
-    [eventId],
-  );
-
-  const stepOptions = useMemo((): Option[] => {
-    if (step === 1) return stepEvents;
-    if (step === 2) return stepRelations;
-    return [];
-  }, [step, stepEvents, stepRelations]);
-
-  const getSelectedTitle = (index: number) => {
-    const id = selections[index];
-    if (index === 0) return EVENT_TYPES.find((e) => e.id === id)?.title ?? "";
-    if (index === 1) return stepEvents.find((e) => e.id === id)?.title ?? "";
-    return id ? relationTitle(eventId, id) : "";
-  };
-
-  // --- HANDLERS ---
-  const selectOption = (id: string) => setSelections((prev) => [...prev, id]);
-  const jumpToStep = (index: number) =>
-    setSelections((prev) => prev.slice(0, index));
-
-  const handleDisagree = () => {
-    onRequestFeedback(
-      `Prigoda: ${getSelectedTitle(0)}\n` +
-        `Događaj: ${getSelectedTitle(1)}\n` +
-        `Odnos: ${getSelectedTitle(2)}\n` +
-        `Poruka: `,
-    );
-  };
+  const {
+    step,
+    query,
+    setQuery,
+    isSearching,
+    searchResults,
+    stepOptions,
+    result,
+    getSelectedTitle,
+    selectOption,
+    selectEvent,
+    jumpToStep,
+    handleDisagree,
+  } = useStepFlow(onRequestFeedback);
 
   const meta = step < 3 ? STEP_META[step] : null;
 
   return (
     <section className="mx-auto w-full max-w-5xl px-6">
+      {/* Search is only for picking an event, so show it during steps 0–1. */}
+      {step < 2 && (
+        <div className="animate-fade-up mb-6">
+          <SearchBar value={query} onChange={setQuery} />
+        </div>
+      )}
+
       <StepNavigation
         stepLabels={STEP_LABELS}
         currentStep={step}
@@ -72,46 +45,34 @@ export default function StepSection({ onRequestFeedback }: StepSectionProps) {
         onJumpToStep={jumpToStep}
       />
 
-      {meta && <StepHeader title={meta.title} desc={meta.desc} />}
-
-      {step === 0 && (
-        <div
-          key="step-0"
-          className="grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-4"
-        >
-          {EVENT_TYPES.map((event, index) => (
-            <EventCard
-              key={event.id}
-              event={event}
-              index={index}
-              onSelect={() => selectOption(event.id)}
-            />
-          ))}
-        </div>
-      )}
-
-      {(step === 1 || step === 2) && (
-        <div
-          key={`step-${step}`}
-          className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3"
-        >
-          {stepOptions.map((option, index) => (
-            <OptionCard
-              key={option.id}
-              title={option.title}
-              index={index}
-              onSelect={() => selectOption(option.id)}
-            />
-          ))}
-        </div>
-      )}
-
-      {step === 3 && (
-        <ResultCard
-          result={getResult(selections[1], selections[2])}
-          onReset={() => jumpToStep(0)}
-          onDisagree={handleDisagree}
+      {isSearching ? (
+        <SearchResults
+          results={searchResults}
+          query={query}
+          onSelect={selectEvent}
         />
+      ) : (
+        <>
+          {meta && <StepHeader title={meta.title} desc={meta.desc} />}
+
+          {step === 0 && <EventTypeGrid onSelect={selectOption} />}
+
+          {(step === 1 || step === 2) && (
+            <OptionGrid
+              key={`step-${step}`}
+              options={stepOptions}
+              onSelect={selectOption}
+            />
+          )}
+
+          {step === 3 && result && (
+            <ResultCard
+              result={result}
+              onReset={() => jumpToStep(0)}
+              onDisagree={handleDisagree}
+            />
+          )}
+        </>
       )}
     </section>
   );

@@ -1,10 +1,29 @@
 import Image from "next/image";
 import Link from "next/link";
 import Calculator from "./components/Calculator";
+import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from "./lib/site";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  name: SITE_NAME,
+  url: SITE_URL,
+  description: SITE_DESCRIPTION,
+  applicationCategory: "FinanceApplication",
+  operatingSystem: "Web",
+  inLanguage: "hr",
+  isAccessibleForFree: true,
+  offers: { "@type": "Offer", price: "0", priceCurrency: "EUR" },
+};
 
 export default function Home() {
   return (
     <div className="flex min-h-screen flex-col pb-32">
+      {/* Structured data so Google can render a richer result. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <main className="flex-1 pt-10 sm:pt-12">
         {/* Compact intro - part of the content, arranged as a two-column hero */}
         <div className="mx-auto max-w-5xl px-6">

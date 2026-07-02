@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useImperativeHandle, useRef, useState } from "react";
-import { FeedbackBarProps } from "@/app/types";
+import { FeedbackBarProps, FeedbackContext } from "@/app/types";
 import FeedbackHeader from "./FeedbackHeader";
 import FeedbackForm from "./FeedbackForm";
 import FeedbackResult from "./FeedbackResult";
@@ -16,6 +16,11 @@ export default function FeedbackBar({ ref }: FeedbackBarProps) {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<Result>(null);
   const [showResult, setShowResult] = useState(false);
+  /**
+   * Event context when opened via the result's "Ne slažem se"; null for a manual open
+   * Sent along so the email can be sorted by event
+   */
+  const [context, setContext] = useState<FeedbackContext | null>(null);
 
   // --- REFS LAYER ---
   const timers = useRef<number[]>([]);
@@ -26,8 +31,9 @@ export default function FeedbackBar({ ref }: FeedbackBarProps) {
   useImperativeHandle(
     ref,
     () => ({
-      requestFeedback: (prefill: string) => {
+      requestFeedback: (prefill: string, ctx?: FeedbackContext) => {
         setText(prefill);
+        setContext(ctx ?? null);
         setOpen(true);
         setFocusSignal((n) => n + 1);
       },
@@ -48,7 +54,10 @@ export default function FeedbackBar({ ref }: FeedbackBarProps) {
   }, [open, focusSignal]);
 
   // --- HANDLERS ---
-  const handleToggleOpen = () => setOpen((prev) => !prev);
+  const handleToggleOpen = () => {
+    if (!open) setContext(null); // opening manually — not tied to a selection
+    setOpen((prev) => !prev);
+  };
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) =>
     setText(e.target.value);
 
@@ -67,12 +76,14 @@ export default function FeedbackBar({ ref }: FeedbackBarProps) {
         body: JSON.stringify({
           message: text,
           company: honeypotRef.current?.value ?? "",
+          context,
         }),
       });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
       setResult({ kind: "success", msg: "Hvala! Zaprimili smo vašu poruku." });
       setText(""); // Clear only on success so a failed send can be retried.
+      setContext(null);
     } catch {
       setResult({
         kind: "error",
