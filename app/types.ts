@@ -5,6 +5,7 @@ export type EventType = {
   title: string;
   image: string;
   fallback: string;
+  imageFit?: "cover" | "contain"; // "contain" shows a wide illustration fully; defaults to "cover"
 };
 
 export type Option = {
@@ -12,8 +13,34 @@ export type Option = {
   title: string;
 };
 
+// An event flattened together with the category (event type) it belongs to —
+// used by the global event search.
+export type EventEntry = Option & {
+  typeId: string;
+  typeTitle: string;
+};
+
+export type SearchBarProps = {
+  value: string;
+  onChange: (value: string) => void;
+};
+
+// Structured context for a piece of feedback (from the result's "Ne slažem se")
+// so emails can be sorted/tagged by event + relationship rather than parsed from
+// free text.
+export type FeedbackContext = {
+  eventTypeTitle: string;
+  eventTitle: string;
+  relationTitle: string;
+  eventId: string;
+  relationId: string;
+  amount: string;
+};
+
 export type FeedbackHandle = {
-  requestFeedback: (prefill: string) => void; // Opens the panel and pre-fills the textarea
+  // Opens the panel, pre-fills the textarea, and optionally carries the event
+  // context so the sent email can be sorted by event.
+  requestFeedback: (prefill: string, context?: FeedbackContext) => void;
 };
 
 export type FeedbackBarProps = {
@@ -22,12 +49,34 @@ export type FeedbackBarProps = {
 
 export type OptionCardProps = {
   title: string;
+  subtitle?: string; // optional secondary line (e.g. the category, or the amount)
   index: number;
-  onSelect: () => void;
+  onSelect?: () => void; // renders a <button>; ignored when `href` is set
+  href?: string; // when set, the card is a real <Link> (crawlable navigation)
 };
 
-export type StepSectionProps = {
-  onRequestFeedback: (prefill: string) => void;
+// One of the three fixed steps in the flow breadcrumb. `done` steps are
+// navigable (href for a route, or onClick for the client-only category step).
+export type BreadcrumbStep = {
+  label: string;
+  state: "done" | "current" | "upcoming";
+  href?: string;
+  onClick?: () => void;
+  resetsCategory?: boolean; // clears the remembered category on click (→ 4 categories)
+};
+
+export type StepBreadcrumbProps = {
+  steps: [BreadcrumbStep, BreadcrumbStep, BreadcrumbStep];
+};
+
+// Interactive result card on a combination page (wires reset + "Ne slažem se").
+export type ResultViewProps = {
+  result: GiftResult;
+  eventId: string;
+  relationId: string;
+  eventTypeTitle: string;
+  eventTitle: string;
+  relationTitle: string;
 };
 
 export type GiftResult = {
@@ -44,21 +93,6 @@ export type ResultCardProps = {
 export type StepHeaderProps = {
   title: string;
   desc: string;
-};
-
-export type StepNavigationProps = {
-  stepLabels: string[];
-  currentStep: number;
-  getSelectedTitle: (index: number) => string;
-  onJumpToStep: (index: number) => void;
-};
-
-export type StepNavigationItemProps = {
-  label: string;
-  index: number;
-  currentStep: number;
-  getSelectedTitle: (index: number) => string;
-  onJumpToStep: (index: number) => void;
 };
 
 export type EventCardProps = {

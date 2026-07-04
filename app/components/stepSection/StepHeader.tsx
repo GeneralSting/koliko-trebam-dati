@@ -1,5 +1,3 @@
-"use client";
-
 import { StepHeaderProps } from "@/app/types";
 
 export default function StepHeader({ title, desc }: StepHeaderProps) {

@@ -1,4 +1,4 @@
-import { EventType, Option } from "../types";
+import { EventEntry, EventType, Option } from "../types";
 import { RESULTS } from "./results";
 
 export const EVENT_TYPES: EventType[] = [
@@ -7,23 +7,25 @@ export const EVENT_TYPES: EventType[] = [
     title: "Obiteljska slavlja i sakramenti",
     image: "/cards/obiteljska-slavlja.png",
     fallback: "#8C3A63",
+    imageFit: "contain",
   },
   {
     id: "godisnjice-jubileji",
     title: "Rođendani, godišnjice i ljubav",
     image: "/cards/godisnjice-jubileji.png",
     fallback: "#58101F",
+    imageFit: "contain",
   },
   {
     id: "obrazovanje-karijera",
-    title: "Obrazovanje, posao",
+    title: "Obrazovanje i posao",
     image: "/cards/obrazovanje-karijera.png",
     fallback: "#182C5E",
   },
   {
     id: "dogadaji",
     title: "Zahvalnice, prekretnice i ostalo",
-    image: "/cards/dogadaji.png",
+    image: "/cards/zahvalnice-prekretnice-ostalo.png",
     fallback: "#18564C",
   },
 ];
@@ -62,11 +64,36 @@ export const EVENTS: Record<string, Option[]> = {
     { id: "selidba-inozemstvo", title: "Selidba u inozemstvo" },
     { id: "kupnja-nekretnine", title: "Kupnja nekretnine" },
     { id: "useljenje-doma", title: "Useljenje u novi dom" },
-    { id: "sprovod", title: "Sprovod" },
+    { id: "blagoslov-kuce", title: "Blagoslov kuće / stana" },
     { id: "zahvala-uciteljici", title: "Zahvala učiteljici" },
+    { id: "sprovod", title: "Sprovod" },
     { id: "ostalo", title: "Ostalo" },
   ],
 };
+
+// Every event flattened with its category, for the global event search.
+export const ALL_EVENTS: EventEntry[] = EVENT_TYPES.flatMap((type) =>
+  (EVENTS[type.id] ?? []).map((event) => ({
+    ...event,
+    typeId: type.id,
+    typeTitle: type.title,
+  })),
+);
+
+// Fold Croatian diacritics so "rodendan" matches "Rođendan", "vjencanje" → "Vjenčanje", etc.
+const foldDiacritics = (value: string) =>
+  value
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "") // strip combining accents (č→c, ž→z, …)
+    .replace(/đ/g, "d"); // đ has no NFD decomposition
+
+/** Search across all events (any category) by title; empty query → no results. */
+export function searchEvents(query: string): EventEntry[] {
+  const q = foldDiacritics(query.trim());
+  if (!q) return [];
+  return ALL_EVENTS.filter((event) => foldDiacritics(event.title).includes(q));
+}
 
 // Step 3 — your relationship to the recipient. The available relationships
 // depend on the chosen event and are derived from RESULTS; this map provides the
@@ -86,6 +113,7 @@ export const RELATION_TITLES: Record<string, string> = {
   poznanik: "Poznanik",
   obitelj: "Obitelj",
   "skupno-razred": "Cijeli razred (zajednički)",
+  svecenik: "Svećenik / ministranti",
 };
 
 // Per-event display overrides where the generic label would be ambiguous — e.g.
@@ -93,10 +121,10 @@ export const RELATION_TITLES: Record<string, string> = {
 // grandparent), so we spell that out.
 const RELATION_TITLE_OVERRIDES: Record<string, Record<string, string>> = {
   "rodenje-djeteta": {
-    roditelj: "Roditelj (baka/djed djetetu)",
+    roditelj: "Roditelj (baka / djed djetetu)",
   },
   krstenje: {
-    "baka-djed": "Roditelj (baka/djed)",
+    "baka-djed": "Roditelj (baka / djed)",
   },
 };
 
@@ -112,3 +140,15 @@ export function getRelationOptions(eventId: string): Option[] {
     title: relationTitle(eventId, id),
   }));
 }
+
+/** Full entry (title + category) for an event id — used by the event route pages. */
+export function getEventMeta(eventId: string): EventEntry | undefined {
+  return ALL_EVENTS.find((event) => event.id === eventId);
+}
+
+// Every valid event + relationship pair, for statically generating the
+// combination pages (`/[event]/[relation]`) and listing them in the sitemap.
+export const ALL_EVENT_RELATIONS: { event: string; relation: string }[] =
+  Object.entries(RESULTS).flatMap(([event, relations]) =>
+    Object.keys(relations).map((relation) => ({ event, relation })),
+  );

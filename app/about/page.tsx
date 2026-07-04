@@ -2,9 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Kako funkcionira? - Koliko Trebam Dati?",
+  title: "Kako funkcionira?",
   description:
     "Saznajte kako Koliko Trebam Dati? računa preporučeni iznos darivanja na temelju prigode i vašeg odnosa s primateljem.",
+  alternates: {
+    canonical: "/about",
+  },
 };
 
 const STEPS = [
@@ -39,7 +42,7 @@ const NOTES = [
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen pb-20">
+    <main className="min-h-screen pb-20">
       <div className="mx-auto max-w-2xl px-6 py-10 sm:py-14">
         <header className="mt-10">
           <p className="text-sm font-semibold uppercase tracking-[0.16em] text-accent">
@@ -109,6 +112,6 @@ export default function AboutPage() {
           </Link>
         </div>
       </div>
-    </div>
+    </main>
   );
 }
