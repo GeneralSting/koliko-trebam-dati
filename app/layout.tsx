@@ -18,8 +18,11 @@ const hanken = Hanken_Grotesk({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Koliko Trebam Dati? — Kalkulator darivanja",
-    template: "%s — Koliko Trebam Dati?",
+    default: "Koliko Trebam Dati? - Kalkulator darivanja",
+    // Short, non-repeating suffix: the keyword question leads, the tail just
+    // labels the site (avoids the old "…dati? — Koliko Trebam Dati?" double
+    // question + repeated "koliko/dati").
+    template: "%s - Kalkulator darivanja",
   },
   description: SITE_DESCRIPTION,
   applicationName: SITE_NAME,
@@ -43,12 +46,12 @@ export const metadata: Metadata = {
     locale: "hr_HR",
     url: "/",
     siteName: SITE_NAME,
-    title: "Koliko Trebam Dati? — Kalkulator darivanja",
+    title: "Koliko Trebam Dati? - Kalkulator darivanja",
     description: SITE_DESCRIPTION,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Koliko Trebam Dati? — Kalkulator darivanja",
+    title: "Koliko Trebam Dati? - Kalkulator darivanja",
     description: SITE_DESCRIPTION,
   },
   robots: {

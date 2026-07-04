@@ -10,6 +10,6 @@ function resolveBaseUrl(): string {
 }
 
 export const SITE_URL = resolveBaseUrl();
-export const SITE_NAME = "Koliko Trebam Dati?";
+export const SITE_NAME = "Koliko Dati?";
 export const SITE_DESCRIPTION =
   "Brzo saznajte preporučeni iznos novčanog poklona ovisno o prigodi i vašem odnosu s primateljem, prilagođen hrvatskim običajima.";

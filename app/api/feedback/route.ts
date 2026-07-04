@@ -104,7 +104,7 @@ export async function POST(request: NextRequest) {
   const relationId = asTag(context?.relationId);
 
   const subject = eventTitle
-    ? `Povratna informacija — ${eventTitle}${relationTitle ? ` · ${relationTitle}` : ""}`
+    ? `Povratna informacija - ${eventTitle}${relationTitle ? ` · ${relationTitle}` : ""}`
     : "Povratna informacija (bez konteksta)";
 
   const tags = eventId

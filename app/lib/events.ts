@@ -121,10 +121,10 @@ export const RELATION_TITLES: Record<string, string> = {
 // grandparent), so we spell that out.
 const RELATION_TITLE_OVERRIDES: Record<string, Record<string, string>> = {
   "rodenje-djeteta": {
-    roditelj: "Roditelj (baka/djed djetetu)",
+    roditelj: "Roditelj (baka / djed djetetu)",
   },
   krstenje: {
-    "baka-djed": "Roditelj (baka/djed)",
+    "baka-djed": "Roditelj (baka / djed)",
   },
 };
 
@@ -140,3 +140,15 @@ export function getRelationOptions(eventId: string): Option[] {
     title: relationTitle(eventId, id),
   }));
 }
+
+/** Full entry (title + category) for an event id — used by the event route pages. */
+export function getEventMeta(eventId: string): EventEntry | undefined {
+  return ALL_EVENTS.find((event) => event.id === eventId);
+}
+
+// Every valid event + relationship pair, for statically generating the
+// combination pages (`/[event]/[relation]`) and listing them in the sitemap.
+export const ALL_EVENT_RELATIONS: { event: string; relation: string }[] =
+  Object.entries(RESULTS).flatMap(([event, relations]) =>
+    Object.keys(relations).map((relation) => ({ event, relation })),
+  );

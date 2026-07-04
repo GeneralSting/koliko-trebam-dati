@@ -49,31 +49,34 @@ export type FeedbackBarProps = {
 
 export type OptionCardProps = {
   title: string;
-  subtitle?: string; // optional secondary line (e.g. the category, in search results)
+  subtitle?: string; // optional secondary line (e.g. the category, or the amount)
   index: number;
-  onSelect: () => void;
+  onSelect?: () => void; // renders a <button>; ignored when `href` is set
+  href?: string; // when set, the card is a real <Link> (crawlable navigation)
 };
 
-export type StepSectionProps = {
-  onRequestFeedback: (prefill: string, context?: FeedbackContext) => void;
+// One of the three fixed steps in the flow breadcrumb. `done` steps are
+// navigable (href for a route, or onClick for the client-only category step).
+export type BreadcrumbStep = {
+  label: string;
+  state: "done" | "current" | "upcoming";
+  href?: string;
+  onClick?: () => void;
+  resetsCategory?: boolean; // clears the remembered category on click (→ 4 categories)
 };
 
-// Grid of the four event-type cards (step 0).
-export type EventTypeGridProps = {
-  onSelect: (id: string) => void;
+export type StepBreadcrumbProps = {
+  steps: [BreadcrumbStep, BreadcrumbStep, BreadcrumbStep];
 };
 
-// Grid of selectable options — events (step 1) or relationships (step 2).
-export type OptionGridProps = {
-  options: Option[];
-  onSelect: (id: string) => void;
-};
-
-// Cross-category event search results (shown while typing in the search bar).
-export type SearchResultsProps = {
-  results: EventEntry[];
-  query: string;
-  onSelect: (event: EventEntry) => void;
+// Interactive result card on a combination page (wires reset + "Ne slažem se").
+export type ResultViewProps = {
+  result: GiftResult;
+  eventId: string;
+  relationId: string;
+  eventTypeTitle: string;
+  eventTitle: string;
+  relationTitle: string;
 };
 
 export type GiftResult = {
@@ -90,21 +93,6 @@ export type ResultCardProps = {
 export type StepHeaderProps = {
   title: string;
   desc: string;
-};
-
-export type StepNavigationProps = {
-  stepLabels: string[];
-  currentStep: number;
-  getSelectedTitle: (index: number) => string;
-  onJumpToStep: (index: number) => void;
-};
-
-export type StepNavigationItemProps = {
-  label: string;
-  index: number;
-  currentStep: number;
-  getSelectedTitle: (index: number) => string;
-  onJumpToStep: (index: number) => void;
 };
 
 export type EventCardProps = {
