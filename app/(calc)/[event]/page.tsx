@@ -94,13 +94,13 @@ export default async function EventPage({ params }: Params) {
           Odaberite svoj odnos s primateljem za točan iznos:
         </p>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {relations.map((rel, index) => (
+          {relations.map((relation, index) => (
             <OptionCard
-              key={rel.id}
+              key={relation.id}
               index={index}
-              title={rel.title}
-              subtitle={getResult(event, rel.id).amount}
-              href={`/${event}/${rel.id}`}
+              title={relation.title}
+              subtitle={getResult(event, relation.id).amount}
+              href={`/${event}/${relation.id}`}
             />
           ))}
         </div>

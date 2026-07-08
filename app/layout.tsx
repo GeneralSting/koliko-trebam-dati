@@ -19,9 +19,6 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
     default: "Koliko Trebam Dati? - Kalkulator darivanja",
-    // Short, non-repeating suffix: the keyword question leads, the tail just
-    // labels the site (avoids the old "…dati? — Koliko Trebam Dati?" double
-    // question + repeated "koliko/dati").
     template: "%s - Kalkulator darivanja",
   },
   description: SITE_DESCRIPTION,
@@ -32,8 +29,8 @@ export const metadata: Metadata = {
     "novčani poklon",
     "darivanje",
     "vjenčanje",
+    "svadba",
     "krštenje",
-    "rođendan",
     "kuma",
     "kum",
     "hrvatski običaji",

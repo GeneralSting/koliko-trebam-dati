@@ -5,7 +5,6 @@ export type EventType = {
   title: string;
   image: string;
   fallback: string;
-  imageFit?: "cover" | "contain"; // "contain" shows a wide illustration fully; defaults to "cover"
 };
 
 export type Option = {
@@ -13,8 +12,7 @@ export type Option = {
   title: string;
 };
 
-// An event flattened together with the category (event type) it belongs to —
-// used by the global event search.
+// An event flattened together with the category (event type) it belongs to - used by the global event search
 export type EventEntry = Option & {
   typeId: string;
   typeTitle: string;
@@ -25,9 +23,10 @@ export type SearchBarProps = {
   onChange: (value: string) => void;
 };
 
-// Structured context for a piece of feedback (from the result's "Ne slažem se")
-// so emails can be sorted/tagged by event + relationship rather than parsed from
-// free text.
+/**
+ * Structured context for a piece of feedback (from the result's "Ne slažem se") so
+ * emails can be sorted/tagged by event + relationship rather than parsed from free text
+ */
 export type FeedbackContext = {
   eventTypeTitle: string;
   eventTitle: string;
@@ -38,8 +37,7 @@ export type FeedbackContext = {
 };
 
 export type FeedbackHandle = {
-  // Opens the panel, pre-fills the textarea, and optionally carries the event
-  // context so the sent email can be sorted by event.
+  // Opens the panel, pre-fills the textarea, and optionally carries the event context so the sent email can be sorted by event
   requestFeedback: (prefill: string, context?: FeedbackContext) => void;
 };
 
@@ -55,14 +53,16 @@ export type OptionCardProps = {
   href?: string; // when set, the card is a real <Link> (crawlable navigation)
 };
 
-// One of the three fixed steps in the flow breadcrumb. `done` steps are
-// navigable (href for a route, or onClick for the client-only category step).
+/**
+ * One of the three fixed steps in the flow breadcrumb. `done` steps are
+ * navigable (href for a route, or onClick for the client-only category step)
+ */
 export type BreadcrumbStep = {
   label: string;
   state: "done" | "current" | "upcoming";
   href?: string;
   onClick?: () => void;
-  resetsCategory?: boolean; // clears the remembered category on click (→ 4 categories)
+  resetsCategory?: boolean; // clears the remembered category on click (4 categories)
 };
 
 export type StepBreadcrumbProps = {
@@ -107,14 +107,18 @@ export type FeedbackFormProps = {
   isSendDisabled: boolean;
   sendButtonCursorClass: string;
   textareaRef: Ref<HTMLTextAreaElement>;
-  onTextChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onTextChange: (changeEvent: React.ChangeEvent<HTMLTextAreaElement>) => void;
   onSubmit: () => void;
 };
 
-type Result = { kind: "success" | "error"; msg: string } | null;
+// Outcome of a feedback send: a success/error banner, or null while idle.
+export type FeedbackSendResult = {
+  kind: "success" | "error";
+  message: string;
+} | null;
 
 export type FeedbackResultProps = {
-  result: Result;
+  result: FeedbackSendResult;
   resultHeightStyle: React.CSSProperties;
   resultTextOpacityClass: string;
   resultTextColorClass: string;

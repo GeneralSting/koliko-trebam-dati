@@ -7,14 +7,12 @@ export const EVENT_TYPES: EventType[] = [
     title: "Obiteljska slavlja i sakramenti",
     image: "/cards/obiteljska-slavlja.png",
     fallback: "#8C3A63",
-    imageFit: "contain",
   },
   {
     id: "godisnjice-jubileji",
     title: "Rođendani, godišnjice i ljubav",
     image: "/cards/godisnjice-jubileji.png",
     fallback: "#58101F",
-    imageFit: "contain",
   },
   {
     id: "obrazovanje-karijera",
@@ -90,9 +88,11 @@ const foldDiacritics = (value: string) =>
 
 /** Search across all events (any category) by title; empty query → no results. */
 export function searchEvents(query: string): EventEntry[] {
-  const q = foldDiacritics(query.trim());
-  if (!q) return [];
-  return ALL_EVENTS.filter((event) => foldDiacritics(event.title).includes(q));
+  const normalizedQuery = foldDiacritics(query.trim());
+  if (!normalizedQuery) return [];
+  return ALL_EVENTS.filter((event) =>
+    foldDiacritics(event.title).includes(normalizedQuery),
+  );
 }
 
 // Step 3 — your relationship to the recipient. The available relationships
@@ -129,15 +129,19 @@ const RELATION_TITLE_OVERRIDES: Record<string, Record<string, string>> = {
 };
 
 /** Title for a relationship id, with an optional per-event clarification. */
-export function relationTitle(eventId: string, id: string): string {
-  return RELATION_TITLE_OVERRIDES[eventId]?.[id] ?? RELATION_TITLES[id] ?? id;
+export function relationTitle(eventId: string, relationId: string): string {
+  return (
+    RELATION_TITLE_OVERRIDES[eventId]?.[relationId] ??
+    RELATION_TITLES[relationId] ??
+    relationId
+  );
 }
 
 /** Relationship options available for a given event, in their authored order. */
 export function getRelationOptions(eventId: string): Option[] {
-  return Object.keys(RESULTS[eventId] ?? {}).map((id) => ({
-    id,
-    title: relationTitle(eventId, id),
+  return Object.keys(RESULTS[eventId] ?? {}).map((relationId) => ({
+    id: relationId,
+    title: relationTitle(eventId, relationId),
   }));
 }
 

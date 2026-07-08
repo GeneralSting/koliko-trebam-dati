@@ -1,8 +1,7 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "./lib/site";
 
-// Served at /robots.txt. Allow everything except the feedback API, and point
-// crawlers at the sitemap.
+// Served at /robots.txt. Allow everything except the feedback API, and point crawlers at the sitemap
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: {

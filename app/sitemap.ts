@@ -2,8 +2,10 @@ import type { MetadataRoute } from "next";
 import { SITE_URL } from "./lib/site";
 import { ALL_EVENTS, ALL_EVENT_RELATIONS } from "./lib/events";
 
-// Served at /sitemap.xml. Generated from the data so every event and
-// event+relationship page is listed for crawlers automatically.
+/**
+ * Served at /sitemap.xml. Generated from the data so every event and
+ * event+relationship page is listed for crawlers automatically
+ */
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
 
