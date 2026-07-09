@@ -10,7 +10,7 @@ export default function ResultCard({
 }: ResultCardProps) {
   return (
     <div className="animate-fade-up relative rounded-2xl border border-line bg-surface p-6 shadow-sm sm:p-8">
-      <p className="mb-3 text-[12px] italic leading-snug text-muted/70 min-[480px]:absolute min-[480px]:right-6 min-[480px]:top-6 min-[480px]:mb-0 min-[480px]:max-w-[42%] min-[480px]:text-right sm:right-8 sm:top-8">
+      <p className="mb-3 text-[12px] italic leading-snug text-muted min-[480px]:absolute min-[480px]:right-6 min-[480px]:top-6 min-[480px]:mb-0 min-[480px]:max-w-[42%] min-[480px]:text-right sm:right-8 sm:top-8">
         Darujte u skladu sa svojim mogućnostima
       </p>
       <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
