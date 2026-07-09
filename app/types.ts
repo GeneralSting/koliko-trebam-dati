@@ -1,4 +1,5 @@
 import { Ref, RefObject } from "react";
+import { FeedbackController } from "./hooks/useFeedbackBar";
 
 export type EventType = {
   id: string;
@@ -41,8 +42,20 @@ export type FeedbackHandle = {
   requestFeedback: (prefill: string, context?: FeedbackContext) => void;
 };
 
-export type FeedbackBarProps = {
+export type FeedbackDockProps = {
   ref: RefObject<FeedbackHandle | null>;
+};
+
+export type FeedbackPanelProps = {
+  feedback: FeedbackController;
+};
+
+export type FeedbackModalProps = {
+  feedback: FeedbackController;
+};
+
+export type FeedbackBarProps = {
+  feedback: FeedbackController;
 };
 
 export type OptionCardProps = {

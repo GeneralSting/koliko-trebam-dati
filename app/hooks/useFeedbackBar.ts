@@ -63,6 +63,7 @@ export function useFeedbackBar(ref: RefObject<FeedbackHandle | null>) {
     if (!open) setContext(null); // opening manually — not tied to a selection
     setOpen((prev) => !prev);
   };
+  const handleClose = () => setOpen(false);
   const handleTextChange = (
     changeEvent: React.ChangeEvent<HTMLTextAreaElement>,
   ) => setText(changeEvent.target.value);
@@ -128,6 +129,7 @@ export function useFeedbackBar(ref: RefObject<FeedbackHandle | null>) {
     textareaRef,
     honeypotRef,
     handleToggleOpen,
+    handleClose,
     handleTextChange,
     handleSubmit,
     isSendDisabled,
@@ -140,3 +142,7 @@ export function useFeedbackBar(ref: RefObject<FeedbackHandle | null>) {
     resultTextColorClass,
   };
 }
+
+// The full feedback state/handlers bundle, passed to the bar and the modal so
+// they share one source of truth (text, context, open state) across breakpoints.
+export type FeedbackController = ReturnType<typeof useFeedbackBar>;
