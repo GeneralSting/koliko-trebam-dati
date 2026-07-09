@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Schibsted_Grotesk, Hanken_Grotesk } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from "./lib/site";
 import "./globals.css";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const schibsted = Schibsted_Grotesk({
   subsets: ["latin", "latin-ext"],
@@ -93,7 +95,11 @@ export default function RootLayout({
       lang="hr"
       className={`${schibsted.variable} ${hanken.variable} scroll-smooth`}
     >
-      <body className="min-h-screen">{children}</body>
+      <body className="min-h-screen">
+        {children}
+        <Analytics />
+        <SpeedInsights />
+      </body>
     </html>
   );
 }
