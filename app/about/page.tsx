@@ -64,19 +64,21 @@ export default function AboutPage() {
         </header>
 
         <ol className="mt-10 space-y-4">
-          {STEPS.map((s, i) => (
+          {STEPS.map((step, index) => (
             <li
-              key={s.title}
+              key={step.title}
               className="animate-fade-up flex gap-4 rounded-2xl border border-line bg-surface p-5 shadow-sm"
-              style={{ animationDelay: `${120 + i * 70}ms` }}
+              style={{ animationDelay: `${120 + index * 70}ms` }}
             >
               <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent/10 font-display font-bold text-accent">
-                {i + 1}
+                {index + 1}
               </span>
               <div>
-                <h2 className="font-display text-base font-bold">{s.title}</h2>
+                <h2 className="font-display text-base font-bold">
+                  {step.title}
+                </h2>
                 <p className="mt-1 text-[15px] leading-relaxed text-muted">
-                  {s.body}
+                  {step.body}
                 </p>
               </div>
             </li>
@@ -89,11 +91,11 @@ export default function AboutPage() {
         >
           <h2 className="font-display text-lg font-bold">Dobro je znati</h2>
           <div className="mt-4 space-y-5">
-            {NOTES.map((n) => (
-              <div key={n.title}>
-                <h3 className="font-semibold text-ink">{n.title}</h3>
+            {NOTES.map((note) => (
+              <div key={note.title}>
+                <h3 className="font-semibold text-ink">{note.title}</h3>
                 <p className="mt-1 leading-relaxed text-[15px] text-muted">
-                  {n.body}
+                  {note.body}
                 </p>
               </div>
             ))}

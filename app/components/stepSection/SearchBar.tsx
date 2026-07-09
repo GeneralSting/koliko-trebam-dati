@@ -12,7 +12,7 @@ export default function SearchBar({ value, onChange }: SearchBarProps) {
       <input
         type="text"
         value={value}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(changeEvent) => onChange(changeEvent.target.value)}
         placeholder="Pretraži događaj (npr. vjenčanje, rođendan, sprovod)…"
         aria-label="Pretraži događaj"
         className="w-full rounded-xl border border-line bg-surface py-3 pl-11 pr-10 text-sm text-ink shadow-sm outline-none transition-colors placeholder:text-muted/70 focus:border-accent"

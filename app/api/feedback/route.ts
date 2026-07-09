@@ -1,35 +1,13 @@
 import { Resend } from "resend";
 import type { NextRequest } from "next/server";
+import { isRateLimited } from "@/app/lib/feedback/rateLimit";
+import { buildFeedbackEmail } from "@/app/lib/feedback/email";
 
 // This endpoint just emails each submission to the site owner, who reviews it by
 // hand and updates the hardcoded data. No database, no automation on purpose.
 
 const MAX_MESSAGE_LENGTH = 5000;
 const MIN_MESSAGE_LENGTH = 2;
-
-// Best-effort in-memory rate limit. On serverless this only sees a single warm
-// instance, so it's a speed bump against bursts — the honeypot is the real
-// spam guard (add Cloudflare Turnstile later if abuse becomes a problem).
-const RATE_LIMIT_WINDOW_MS = 60_000;
-const RATE_LIMIT_MAX = 5;
-const hits = new Map<string, number[]>();
-
-function isRateLimited(ip: string): boolean {
-  const now = Date.now();
-  const recent = (hits.get(ip) ?? []).filter(
-    (time) => now - time < RATE_LIMIT_WINDOW_MS,
-  );
-  recent.push(now);
-  hits.set(ip, recent);
-  return recent.length > RATE_LIMIT_MAX;
-}
-
-function escapeHtml(value: string): string {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
-}
 
 export async function POST(request: NextRequest) {
   let body: unknown;
@@ -85,51 +63,20 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const submittedAt = new Date().toISOString();
-  const userAgent = request.headers.get("user-agent") ?? "unknown";
-  const referer = request.headers.get("referer") ?? "unknown";
-
-  // Structured context (present when sent from the result's "Ne slažem se") lets
-  // the email be sorted by event: it drives a descriptive subject and Resend
-  // tags, and surfaces the amount the user was disputing.
-  const asString = (value: unknown) => (typeof value === "string" ? value : "");
-  const eventTitle = asString(context?.eventTitle);
-  const relationTitle = asString(context?.relationTitle);
-  const amount = asString(context?.amount);
-  const asTag = (value: unknown) =>
-    asString(value)
-      .replace(/[^A-Za-z0-9_-]/g, "-")
-      .slice(0, 256);
-  const eventId = asTag(context?.eventId);
-  const relationId = asTag(context?.relationId);
-
-  const subject = eventTitle
-    ? `Povratna informacija - ${eventTitle}${relationTitle ? ` · ${relationTitle}` : ""}`
-    : "Povratna informacija (bez konteksta)";
-
-  const tags = eventId
-    ? [
-        { name: "event", value: eventId },
-        ...(relationId ? [{ name: "relation", value: relationId }] : []),
-      ]
-    : undefined;
-
-  const messageBlock = amount
-    ? `${clean}\n\nPrikazani iznos: ${amount}`
-    : clean;
-  const meta = `Vrijeme: ${submittedAt}\nStranica: ${referer}\nIP: ${ip}\nUser-Agent: ${userAgent}`;
+  const { subject, tags, text, html } = buildFeedbackEmail(clean, context, {
+    submittedAt: new Date().toISOString(),
+    referer: request.headers.get("referer") ?? "unknown",
+    ip,
+    userAgent: request.headers.get("user-agent") ?? "unknown",
+  });
 
   const resend = new Resend(apiKey);
   const { error } = await resend.emails.send({
     from,
     to: [to],
     subject,
-    text: `${messageBlock}\n\n---\n${meta}`,
-    html: `<pre style="font:14px/1.5 ui-monospace,monospace;white-space:pre-wrap;word-break:break-word">${escapeHtml(
-      messageBlock,
-    )}</pre><hr><pre style="font:12px/1.5 ui-monospace,monospace;color:#666;white-space:pre-wrap">${escapeHtml(
-      meta,
-    )}</pre>`,
+    text,
+    html,
     tags,
   });
 

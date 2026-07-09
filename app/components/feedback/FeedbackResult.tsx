@@ -19,7 +19,7 @@ export default function FeedbackResult({
           <p
             className={`pt-2.5 text-[13px] font-medium transition-opacity duration-300 ${resultTextOpacityClass} ${resultTextColorClass}`}
           >
-            {result.msg}
+            {result.message}
           </p>
         )}
       </div>
