@@ -58,6 +58,13 @@ export type FeedbackBarProps = {
   feedback: FeedbackController;
 };
 
+export type FeedbackHeaderProps = {
+  isOpen: boolean;
+  emphasisClass: string;
+  chevronRotationClass: string;
+  onToggle: () => void;
+};
+
 export type OptionCardProps = {
   title: string;
   subtitle?: string; // optional secondary line (e.g. the category, or the amount)

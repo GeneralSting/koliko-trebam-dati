@@ -5,22 +5,25 @@ import { ChatIcon, CloseIcon } from "../Icons";
 import FeedbackPanel from "./FeedbackPanel";
 import { FeedbackModalProps } from "@/app/types";
 
-// Mobile presentation: an Android-style floating action button that opens a
-// centered modal dialog. The overlay stays mounted and cross-fades via CSS so it
-// animates both in and out; the shared controller keeps the entered text (and
-// "Ne slažem se" prefill) intact across open/close.
+/**
+ * mobile presentation: an android style FAB that opens a centered modal dialog
+ * the overlay stays mounted and cross-fades via CSS so it animates both in and out
+ */
 export default function FeedbackModal({ feedback }: FeedbackModalProps) {
   const { open, handleClose, handleToggleOpen } = feedback;
 
   // While open: close on Escape and lock background scroll.
   useEffect(() => {
     if (!open) return;
+
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") handleClose();
     };
     window.addEventListener("keydown", onKeyDown);
+
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+
     return () => {
       window.removeEventListener("keydown", onKeyDown);
       document.body.style.overflow = previousOverflow;
@@ -29,7 +32,7 @@ export default function FeedbackModal({ feedback }: FeedbackModalProps) {
 
   return (
     <>
-      {/* Floating action button — fades in/out opposite the dialog. */}
+      {/* Floating action button — fades in/out opposite the dialog */}
       <button
         type="button"
         onClick={handleToggleOpen}
@@ -41,7 +44,7 @@ export default function FeedbackModal({ feedback }: FeedbackModalProps) {
         <ChatIcon className="h-6 w-6" />
       </button>
 
-      {/* Dialog overlay — always mounted so it can fade both in and out. */}
+      {/* Dialog overlay — always mounted so it can fade both in and out */}
       <div
         inert={!open}
         aria-hidden={!open}

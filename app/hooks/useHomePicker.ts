@@ -9,17 +9,20 @@ import {
 } from "@/app/lib/categoryMemory";
 import { BreadcrumbStep } from "@/app/types";
 
-// State + derived values for the landing-page picker: the current search query,
-// the remembered category (read from the external store), the flow breadcrumb,
-// and the lists to render. HomePicker itself is left as pure layout.
+/**
+ * state + derived values for the landing-page picker: the current search query,
+ * the remembered category (read from the external store), the flow breadcrumb,
+ * and the lists to render
+ */
 export function useHomePicker() {
   const [query, setQuery] = useState("");
 
-  // Category selection has no URL, so returning to "/" (Back button or a
-  // breadcrumb Link from an event page) would otherwise reset to the 4
-  // categories. The last category is persisted in sessionStorage and read here,
-  // so Back/breadcrumb lands on that category's event list. Event pages write it
-  // too, so it's correct even when arriving via search or a direct link.
+  /**
+   * category selection has no URL, so returning to "/" would otherwise reset to the 4 categories
+   * the last category is persisted in sessionStorage and read here, so back/breadcrumb
+   * lands on that category's event list. Event pages write it too, so it's correct even when arriving
+   * via search or direct link
+   */
   const stored = useSyncExternalStore(
     subscribeCategory,
     readCategory,
@@ -38,8 +41,10 @@ export function useHomePicker() {
 
   const meta = category ? STEP_META[1] : STEP_META[0];
 
-  // Category is chosen client-side here (no URL); event/relation come later as
-  // real pages. So step 1 is "done" (clears on click) once a category is picked.
+  /**
+   * category is chosen client-side here (no URL); event/relation come later as
+   * real pages. So step 1 is "done" (clears on click) once a category is picked
+   */
   const steps: [BreadcrumbStep, BreadcrumbStep, BreadcrumbStep] = [
     category
       ? { label: categoryTitle, state: "done", onClick: clearCategory }

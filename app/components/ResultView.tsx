@@ -5,8 +5,10 @@ import { ResultViewProps } from "../types";
 import { useFeedback } from "./feedback/FeedbackProvider";
 import ResultCard from "./stepSection/ResultCard";
 
-// Client wrapper so the static combination page can still reset (→ home) and
-// open the feedback bar pre-filled with this exact combination.
+/**
+ * Client wrapper so the static combination page can still reset (home) and
+ * open the feedback bar pre-filled with this exact combination
+ */
 export default function ResultView({
   result,
   eventId,

@@ -3,8 +3,10 @@ import type { NextRequest } from "next/server";
 import { isRateLimited } from "@/app/lib/feedback/rateLimit";
 import { buildFeedbackEmail } from "@/app/lib/feedback/email";
 
-// This endpoint just emails each submission to the site owner, who reviews it by
-// hand and updates the hardcoded data. No database, no automation on purpose.
+/**
+ * this endpoint just emails each submission to the site owner, who reviews it by
+ * hand and updates the hardcoded data. No database, no automation on purpose
+ */
 
 const MAX_MESSAGE_LENGTH = 5000;
 const MIN_MESSAGE_LENGTH = 2;
@@ -23,8 +25,7 @@ export async function POST(request: NextRequest) {
     context?: Record<string, unknown> | null;
   };
 
-  // Honeypot: real users never fill the hidden "company" field. Pretend success
-  // so bots don't learn they were filtered.
+  // Honeypot: real users never fill the hidden "company" field. Pretend success so bots don't learn they were filtered
   if (typeof company === "string" && company.trim() !== "") {
     return Response.json({ ok: true });
   }
@@ -53,7 +54,7 @@ export async function POST(request: NextRequest) {
     process.env.FEEDBACK_FROM ?? "Koliko Trebam Dati <onboarding@resend.dev>";
 
   if (!apiKey || !to) {
-    // Misconfiguration — log server-side, don't leak details to the client.
+    // Misconfiguration - log server-side, don't leak details to the client
     console.error(
       "Feedback email not configured: set RESEND_API_KEY and FEEDBACK_TO.",
     );

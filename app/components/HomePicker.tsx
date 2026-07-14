@@ -8,9 +8,11 @@ import SearchBar from "./stepSection/SearchBar";
 import StepHeader from "./stepSection/StepHeader";
 import StepBreadcrumb from "./StepBreadcrumb";
 
-// Landing-page picker: choose a category (client-side reveal, no URL change),
-// then pick an event — which is a real <Link> to that event's own page. Search
-// spans all events and also links straight to the event pages.
+/**
+ * landing page picker: choose a category (client-side reveal, no URL change),
+ * then pick an event - which is a real <Link> to that event's own page. Seach
+ * spans all events and also links straig to the event pages
+ */
 export default function HomePicker() {
   const {
     query,

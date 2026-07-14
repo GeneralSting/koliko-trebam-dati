@@ -6,9 +6,11 @@ import FeedbackDock from "./FeedbackDock";
 
 type RequestFeedback = (prefill: string, context?: FeedbackContext) => void;
 
-// Exposes the feedback dock's imperative "open + prefill" across route pages, so
-// the result page's "Ne slažem se" can drive the single persistent widget. The
-// dock lives in the shared layout, so it survives client-side navigation.
+/**
+ * Expose the feedback dock's imperative "open + prefill" across route pages, so the result page's
+ * "Ne slažem se" can drive the single persistent widget. the dock lives in the shared
+ * layout, so it survives client-side navigation
+ */
 const FeedbackFnContext = createContext<RequestFeedback>(() => {});
 
 export const useFeedback = () => useContext(FeedbackFnContext);

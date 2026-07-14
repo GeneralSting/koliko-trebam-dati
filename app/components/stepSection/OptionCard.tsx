@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { OptionCardProps } from "../../types";
 
-// Shared card for events/relationships. Renders a real <Link> when `href` is set
-// (so it's crawlable and navigates), otherwise a <button> driven by `onSelect`.
+/**
+ * shared card for events/relationships. Renders a real <Link> when `href` is set
+ * (so it's crawlable and navigates), otherwise a <button> driven by `onSelect`.
+ */
 export default function OptionCard({
   title,
   subtitle,
@@ -27,7 +29,10 @@ export default function OptionCard({
   );
 
   return (
-    <div className="animate-fade-up" style={{ animationDelay: `${index * 40}ms` }}>
+    <div
+      className="animate-fade-up"
+      style={{ animationDelay: `${index * 40}ms` }}
+    >
       {href ? (
         <Link href={href} className={className}>
           {inner}

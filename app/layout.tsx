@@ -63,16 +63,6 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-
-  /**
-   * Set NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION to the token Search Console gives
-   * you (only if you verify via the HTML-tag method instead of DNS)
-   */
-  ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION && {
-    verification: {
-      google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
-    },
-  }),
   icons: {
     icon: [
       { url: "/favicon-96x96.png", sizes: "96x96", type: "image/png" },
