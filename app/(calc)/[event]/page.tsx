@@ -25,8 +25,10 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const meta = getEventMeta(event);
   if (!meta) return {};
 
-  // Accusative phrase ("za krizmu") matches how people search. "novca" in the
-  // title, "novaca" in the description covers both money-word variants.
+  /**
+   * accusative phrase ("za krizmu") matches how people search
+   * "novca" in the title, "novaca" in the description covers both money-word variants
+   */
   const phrase = eventAccusative(event, meta.title);
   const title = `Koliko novca dati za ${phrase}?`;
   const description = `Koliko novaca darovati za ${phrase}? Preporučeni iznosi novčanog dara prema vašem odnosu s primateljem, po uobičajenim hrvatskim običajima.`;
@@ -48,8 +50,10 @@ export default async function EventPage({ params }: Params) {
   const summary = eventSummary(event);
   const heading = `Koliko novca dati za ${eventAccusative(event, meta.title)}?`;
 
-  // Category + event are both chosen on the home page (→ "/"); choosing the
-  // relationship is what happens here, so it's the current step.
+  /**
+   * category + event are both chosen on the home page ("/") choosing the relationship
+   * is what happens here, so it is the current step
+   */
   const steps: [BreadcrumbStep, BreadcrumbStep, BreadcrumbStep] = [
     { label: meta.typeTitle, state: "done", href: "/", resetsCategory: true },
     { label: meta.title, state: "done", href: "/" },
@@ -70,8 +74,10 @@ export default async function EventPage({ params }: Params) {
     ],
   };
 
-  // Broad-question FAQ. Its answer is the same summary shown on the page, so the
-  // structured data matches visible content (Google's FAQ requirement).
+  /**
+   * broad-question FAQ. Its answer is the same summary shown on the page, so the
+   * structured data matches visible content (Google's FAQ requirement)
+   */
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",

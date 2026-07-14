@@ -4,13 +4,17 @@ import FeedbackForm from "./FeedbackForm";
 import FeedbackResult from "./FeedbackResult";
 import { FeedbackPanelProps } from "@/app/types";
 
-// The interactive body of the feedback UI (honeypot + textarea/send + result),
-// shared by both the desktop bar and the mobile modal so the two presentations
-// never duplicate the form. Driven entirely by the shared controller.
+/**
+ * interactive body of the feedback UI - honeypot + textarea/send + result
+ * shared by both the desktop bar and the mobile modal so the two presentations
+ * never duplicate the form - driven entirely by the shared controller
+ */
 export default function FeedbackPanel({ feedback }: FeedbackPanelProps) {
-  // Destructure into locals so the ref-in-render rule tracks each binding
-  // individually (the refs are forwarded, the rest are plain values). Reading
-  // `feedback.textareaRef` etc. directly in JSX trips "refs during render".
+  /**
+   * destructure into locals so the ref-in-render rule tracks each binding individually
+   * (the refs are forwarded. the rest are plain values)
+   * reading 'feedback.textareaRef' etc. directly in JSX trips "refs during render"
+   */
   const {
     honeypotRef,
     text,

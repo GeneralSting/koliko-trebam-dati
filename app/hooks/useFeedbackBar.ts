@@ -11,8 +11,10 @@ import {
   FeedbackSendResult,
 } from "@/app/types";
 
-// All the state, side effects, submit logic and derived presentational values
-// for the feedback bar. FeedbackBar itself is left as pure layout consuming this.
+/**
+ * All the state, side effects, submit logic and derived presentational values
+ * for the feedback bar. FeedbackBar itself is left as pure layout consuming this
+ */
 export function useFeedbackBar(ref: RefObject<FeedbackHandle | null>) {
   // --- STATES ---
   const [open, setOpen] = useState(false);

@@ -17,7 +17,7 @@ import JsonLd from "@/app/components/JsonLd";
 
 type Params = { params: Promise<{ event: string; relation: string }> };
 
-// One statically-generated page per valid event + relationship pair.
+// One statically-generated page per valid event + relationship pair
 export function generateStaticParams() {
   return ALL_EVENT_RELATIONS;
 }
@@ -51,9 +51,10 @@ export default async function CombinationPage({ params }: Params) {
   const result = getResult(event, relation);
   const heading = `Koliko novca dati za ${eventAccusative(event, meta.title)} - ${relTitle}?`;
 
-  // On the result page every step is chosen, so each crumb links back to where
-  // you'd re-choose it: category/event on home ("/"), the relationship on the
-  // event page. The last crumb is now clickable → pick another relationship.
+  /**
+   * On the result page every step is chosen, so each crumb links back to where
+   * we had re-choose it: category/event on home ("/"), the relationship on the event page
+   */
   const steps: [BreadcrumbStep, BreadcrumbStep, BreadcrumbStep] = [
     { label: meta.typeTitle, state: "done", href: "/", resetsCategory: true },
     { label: meta.title, state: "done", href: "/" },
@@ -80,6 +81,10 @@ export default async function CombinationPage({ params }: Params) {
     ],
   };
 
+  /**
+   * broad-question FAQ. Its answer is the same summary shown on the page, so the
+   * structured data matches visible content (Google's FAQ requirement)
+   */
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",

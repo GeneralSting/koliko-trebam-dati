@@ -1,8 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 
-// The shared hero header — identical across every calculator page (landing,
-// event, combination). /about lives outside the (calc) group and keeps its own.
 export default function SiteHeader() {
   return (
     <div className="mx-auto max-w-5xl px-6">

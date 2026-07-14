@@ -1,8 +1,29 @@
 # Koliko trebam dati
 
-## Initial project documentation
+A Croatian money-gift calculator: it tells you **how much money to give** for an
+occasion, based on your relationship to the recipient — following common Croatian
+customs. Live at [kolikodati.com](https://kolikodati.com).
 
-- work in the progress...
+## How it works
+
+The recommendation comes from three choices:
+
+1. **Event type** — a broad category (family celebrations & sacraments,
+   birthdays/anniversaries/love, education/work/milestones, thank-yous & social).
+2. **Event** — the specific occasion (wedding, baptism, confirmation, funeral, …).
+3. **Relationship** — who you are to the recipient (partner, godparent, friend, …).
+
+Given those, the app shows a **recommended amount** plus short contextual notes.
+All values are hardcoded, researched figures for Croatia (in `app/lib/results.ts`)
+— no database, no user accounts.
+
+Each event and event + relationship pair is a real, statically generated URL
+(e.g. `/vjencanje`, `/vjencanje/kum`), so pages are crawlable and indexable for
+search. The four top categories are chosen on the home page without changing the
+URL; everything deeper is its own page.
+
+**Tech:** Next.js 16 (App Router) + React 19 + TypeScript, Tailwind CSS v4
+(light theme), managed with **pnpm**, deployed on Vercel.
 
 ## Feedback email (Resend + Vercel)
 

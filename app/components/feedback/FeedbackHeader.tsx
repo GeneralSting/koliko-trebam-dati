@@ -1,13 +1,7 @@
 "use client";
 
+import { FeedbackHeaderProps } from "@/app/types";
 import { ChatIcon, ChevronUp } from "../Icons";
-
-interface FeedbackHeaderProps {
-  isOpen: boolean;
-  emphasisClass: string;
-  chevronRotationClass: string;
-  onToggle: () => void;
-}
 
 export default function FeedbackHeader({
   isOpen,

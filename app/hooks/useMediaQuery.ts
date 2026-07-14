@@ -1,7 +1,9 @@
 import { useCallback, useSyncExternalStore } from "react";
 
-// Reactive CSS media query. SSR-safe: the server snapshot is `false`, and it
-// re-evaluates + subscribes to changes (e.g. resizing across a breakpoint).
+/**
+ * reactive CSS media query. SSR-safe: the server snapshot is `false`, and it
+ * re-evaluates + subscribes to changes (e.g. resizing across a breakpoint)
+ */
 export function useMediaQuery(query: string): boolean {
   const subscribe = useCallback(
     (onChange: () => void) => {

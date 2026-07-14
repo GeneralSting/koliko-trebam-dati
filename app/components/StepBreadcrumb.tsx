@@ -4,10 +4,11 @@ import Link from "next/link";
 import { StepBreadcrumbProps } from "@/app/types";
 import { forgetCategory } from "@/app/lib/categoryMemory";
 
-// One static breadcrumb for the whole flow — always renders all three steps
-// (Vrsta događaja › Događaj › Odnos). Each step just swaps its text + colour by
-// state: done = accent (navigable), current = ink, upcoming = muted. No
-// animation, so it reads as a persistent element across pages.
+/**
+ * one static breacrumb for the whole flow - always renders all three steps
+ * each step just swaps its text + colour by state: done = accent (navigable), current = ink
+ * upcoming = muted. Persistent element accros pages
+ */
 export default function StepBreadcrumb({ steps }: StepBreadcrumbProps) {
   return (
     <nav
@@ -39,7 +40,11 @@ export default function StepBreadcrumb({ steps }: StepBreadcrumbProps) {
                 {step.label}
               </Link>
             ) : step.state === "done" && step.onClick ? (
-              <button type="button" onClick={step.onClick} className={linkClass}>
+              <button
+                type="button"
+                onClick={step.onClick}
+                className={linkClass}
+              >
                 {step.label}
               </button>
             ) : (

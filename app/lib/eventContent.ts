@@ -1,8 +1,9 @@
-// Per-event summary paragraph: plain-language "what the occasion is + roughly
-// how much money is given" with the actual amount tiers from results.ts. Shown
-// visibly on each event page AND reused as the FAQ answer, so the structured
-// data always matches on-page content (Google's FAQ guideline). This is what
-// answers the dominant broad query ("koliko novca dati za X") in one place.
+/**
+ * per-event summary paragraph: plain-language "what the occasion is + roughly how much money is given" with the actual amount
+ * tiers from results.ts. Shown visibly on each event page and reused as the FAQ answer, so the structured data always
+ * matches on-page content (Google's FAQ guideline), This is what answers that dominant briad query
+ * ("Koliko novca dati za X") in one place
+ */
 export const EVENT_SUMMARIES: Record<string, string> = {
   // Obiteljska slavlja i sakramenti
   vjencanje:
@@ -79,10 +80,11 @@ export function eventSummary(eventId: string): string {
   return EVENT_SUMMARIES[eventId] ?? DEFAULT_SUMMARY;
 }
 
-// Accusative form for the phrase "Koliko novca dati za ___?" - Croatian declines
-// after "za" (krizma → krizmu, svadba → svadbu), and it's the exact form people
-// search. Lowercase (holidays keep their capital). Titles/blog crumbs elsewhere
-// still use the nominative event title.
+/**
+ * accusative form for tha phrase "Koliko novca dati za ___?" - Croatian declines after "za" (krizma - krizmu, svadba - svadbu),
+ * and it's the exact form people search. Lowercase (holidays keep their capiutal)
+ * Titles/blog crumbs elsewhere still use the nominative event title
+ */
 export const EVENT_ACCUSATIVE: Record<string, string> = {
   // "svadba" outsearches "vjenčanje" ~6:1, so the synonym rides along in every
   // title/H1/description/FAQ (accusative "svadbu" matches "koliko dati za svadbu").
