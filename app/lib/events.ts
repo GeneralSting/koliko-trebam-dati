@@ -113,6 +113,7 @@ export const RELATION_TITLES: Record<string, string> = {
   poznanik: "Poznanik",
   obitelj: "Obitelj",
   "skupno-razred": "Cijeli razred (zajednički)",
+  ucenik: "Učenik",
   svecenik: "Svećenik / ministranti",
 };
 
