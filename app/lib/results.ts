@@ -905,10 +905,10 @@ export const RESULTS: Record<string, Record<string, GiftResult>> = {
         "Zakon o sprječavanju sukoba interesa i etički kodeksi javnih službi brane javnim djelatnicima (uključujući učitelje i profesore) primanje pojedinačnih darova velike vrijednosti (zakonski limit za pojedinačni dar je do 66,36 € / 500 HRK).",
       ],
     },
-    učenik: {
+    ucenik: {
       amount: "Simboličan Poklon",
       notes: [
-        "Ako učenik želi samostalno zahvaliti učiteljici, odgojiteljici u vrtiću ili profesoru, poklon mora biti isključivo simbolične vrijednosti.",
+        "Ako učenik želi samostalno zahvaliti učiteljici, odgojiteljici u vrtiću ili profesoru, poklon trebao bi biti isključivo simbolične vrijednosti.",
         "Zakon o sprječavanju sukoba interesa i etički kodeksi javnih službi brane javnim djelatnicima (uključujući učitelje i profesore) primanje pojedinačnih darova velike vrijednosti (zakonski limit za pojedinačni dar je do 66,36 € / 500 HRK).",
       ],
     },

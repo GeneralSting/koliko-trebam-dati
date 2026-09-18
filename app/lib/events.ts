@@ -5,25 +5,25 @@ export const EVENT_TYPES: EventType[] = [
   {
     id: "obiteljska-slavlja",
     title: "Obiteljska slavlja i sakramenti",
-    image: "/cards/obiteljska-slavlja.png",
+    image: "/cards/obiteljska-slavlja.webp",
     fallback: "#8C3A63",
   },
   {
     id: "godisnjice-jubileji",
     title: "Rođendani, godišnjice i ljubav",
-    image: "/cards/godisnjice-jubileji.png",
+    image: "/cards/godisnjice-jubileji.webp",
     fallback: "#58101F",
   },
   {
     id: "obrazovanje-karijera",
     title: "Obrazovanje i posao",
-    image: "/cards/obrazovanje-karijera.png",
+    image: "/cards/obrazovanje-karijera.webp",
     fallback: "#182C5E",
   },
   {
     id: "dogadaji",
     title: "Zahvalnice, prekretnice i ostalo",
-    image: "/cards/zahvalnice-prekretnice-ostalo.png",
+    image: "/cards/zahvalnice-prekretnice-ostalo.webp",
     fallback: "#18564C",
   },
 ];
@@ -113,6 +113,7 @@ export const RELATION_TITLES: Record<string, string> = {
   poznanik: "Poznanik",
   obitelj: "Obitelj",
   "skupno-razred": "Cijeli razred (zajednički)",
+  ucenik: "Učenik",
   svecenik: "Svećenik / ministranti",
 };
 

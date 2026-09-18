@@ -49,16 +49,14 @@ export default function AboutPage() {
             Kako funkcionira
           </p>
           <h1 className="font-display text-3xl font-extrabold tracking-tight sm:text-4xl">
-            Preporuka u tri koraka
+            Koliko Trebam Dati
           </h1>
           <p className="mt-4 leading-relaxed text-muted">
-            <strong className="font-semibold text-ink">
-              Koliko Trebam Dati?
-            </strong>{" "}
-            pomaže vam da brzo procijenite primjeren iznos novčanog poklona za
-            hrvatske prigode - bez nagađanja i neugode. Sve se svodi na dvije
-            stvari: <em className="not-italic font-medium text-ink">prigodu</em>{" "}
-            i vaš <em className="not-italic font-medium text-ink">odnos</em> s
+            Preporuka u tri koraka pomaže vam da brzo procijenite primjeren
+            iznos novčanog poklona za hrvatske prigode - bez nagađanja i
+            neugode. Sve se svodi na dvije stvari:{" "}
+            <em className="not-italic font-medium text-ink">prigodu</em> i vaš{" "}
+            <em className="not-italic font-medium text-ink">odnos</em> s
             primateljem.
           </p>
         </header>

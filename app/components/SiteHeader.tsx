@@ -19,7 +19,7 @@ export default function SiteHeader() {
             <h1 className="font-display text-2xl font-extrabold leading-tight tracking-tight md:text-4xl sm:text-3xl">
               Koliko Trebam Dati?
             </h1>
-            <p className="mt-0.5 font-medium text-ink/70">
+            <p className="mt-0.5 font-medium text-ink/70 max-[380px]:text-[14px]">
               Kalkulator darivanja za svaku prigodu
             </p>
           </div>

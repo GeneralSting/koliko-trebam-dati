@@ -48,6 +48,7 @@ export type FeedbackDockProps = {
 
 export type FeedbackPanelProps = {
   feedback: FeedbackController;
+  isMobileView?: boolean;
 };
 
 export type FeedbackModalProps = {
@@ -122,6 +123,7 @@ export type EventCardProps = {
 };
 
 export type FeedbackFormProps = {
+  isMobileView: boolean;
   text: string;
   isLoading: boolean;
   isSendDisabled: boolean;
