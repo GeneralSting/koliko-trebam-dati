@@ -89,7 +89,7 @@ export default function FeedbackModal({ feedback }: FeedbackModalProps) {
             </button>
           </div>
 
-          <FeedbackPanel feedback={feedback} />
+          <FeedbackPanel isMobileView feedback={feedback} />
         </div>
       </div>
     </>

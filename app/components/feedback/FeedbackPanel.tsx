@@ -9,7 +9,10 @@ import { FeedbackPanelProps } from "@/app/types";
  * shared by both the desktop bar and the mobile modal so the two presentations
  * never duplicate the form - driven entirely by the shared controller
  */
-export default function FeedbackPanel({ feedback }: FeedbackPanelProps) {
+export default function FeedbackPanel({
+  feedback,
+  isMobileView = false,
+}: FeedbackPanelProps) {
   /**
    * destructure into locals so the ref-in-render rule tracks each binding individually
    * (the refs are forwarded. the rest are plain values)
@@ -44,6 +47,7 @@ export default function FeedbackPanel({ feedback }: FeedbackPanelProps) {
       />
 
       <FeedbackForm
+        isMobileView={isMobileView}
         text={text}
         isLoading={loading}
         isSendDisabled={isSendDisabled}

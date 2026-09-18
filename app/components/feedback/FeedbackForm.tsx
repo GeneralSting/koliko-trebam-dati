@@ -4,6 +4,7 @@ import { FeedbackFormProps } from "@/app/types";
 import { SendIcon, Spinner } from "../Icons";
 
 export default function FeedbackForm({
+  isMobileView,
   text,
   isLoading,
   isSendDisabled,
@@ -22,7 +23,7 @@ export default function FeedbackForm({
           onChange={onTextChange}
           rows={3}
           placeholder="Npr. za ovu prigodu ili odnos iznos bi trebao biti veći jer…"
-          className="block min-h-24 w-full resize-none bg-transparent px-3.5 py-3 text-sm leading-relaxed text-ink outline-none placeholder:text-muted/70"
+          className={`block ${isMobileView ? "min-h-36" : "min-h-30"} w-full resize-none bg-transparent px-3.5 py-3 text-sm leading-relaxed text-ink outline-none placeholder:text-muted/70`}
         />
       </div>
 
