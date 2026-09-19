@@ -1,13 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { SHARED_OPEN_GRAPH } from "../lib/site";
+
+const title = "Kako funkcionira kalkulator darivanja?";
+const description =
+  "Saznajte kako Koliko Trebam Dati računa preporučeni iznos darivanja na temelju prigode i vašeg odnosa s primateljem.";
 
 export const metadata: Metadata = {
-  title: "Kako funkcionira?",
-  description:
-    "Saznajte kako Koliko Trebam Dati? računa preporučeni iznos darivanja na temelju prigode i vašeg odnosa s primateljem.",
+  title: { absolute: title },
+  description,
   alternates: {
     canonical: "/about",
   },
+  openGraph: { ...SHARED_OPEN_GRAPH, title, description, url: "/about" },
 };
 
 const STEPS = [
@@ -49,7 +54,7 @@ export default function AboutPage() {
             Kako funkcionira
           </p>
           <h1 className="font-display text-3xl font-extrabold tracking-tight sm:text-4xl">
-            Koliko Trebam Dati
+            Koliko Trebam Dati?
           </h1>
           <p className="mt-4 leading-relaxed text-muted">
             Preporuka u tri koraka pomaže vam da brzo procijenite primjeren

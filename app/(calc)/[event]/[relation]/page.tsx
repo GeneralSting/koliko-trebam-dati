@@ -7,7 +7,7 @@ import {
 } from "@/app/lib/events";
 import { RESULTS, getResult } from "@/app/lib/results";
 import { eventAccusative } from "@/app/lib/eventContent";
-import { SITE_URL } from "@/app/lib/site";
+import { SITE_URL, SHARED_OPEN_GRAPH, categoryOgImages } from "@/app/lib/site";
 import { BreadcrumbStep } from "@/app/types";
 import StepHeader from "@/app/components/stepSection/StepHeader";
 import StepBreadcrumb from "@/app/components/StepBreadcrumb";
@@ -23,6 +23,9 @@ export function generateStaticParams() {
 }
 export const dynamicParams = false;
 
+const lowerFirst = (relation: string) =>
+  relation.charAt(0).toLowerCase() + relation.slice(1);
+
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { event, relation } = await params;
   const meta = getEventMeta(event);
@@ -31,14 +34,22 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const relTitle = relationTitle(event, relation);
   const result = getResult(event, relation);
   const phrase = eventAccusative(event, meta.title);
-  const title = `Koliko novca dati za ${phrase} - ${relTitle}?`;
+  // relation follows a dash mid-sentence, so it's lowercased ("za krizmu - brat / sestra?")
+  const title = `Koliko novca dati za ${phrase} - ${lowerFirst(relTitle)}?`;
   const description = `Preporučeni iznos: ${result.amount}. Koliko novca darovati (${relTitle}) za ${phrase}, po uobičajenim hrvatskim običajima.`;
 
   return {
-    title,
+    // absolute: the relation replaces the " - Kalkulator darivanja" suffix from the root template
+    title: { absolute: title },
     description,
     alternates: { canonical: `/${event}/${relation}` },
-    openGraph: { title, description, url: `/${event}/${relation}` },
+    openGraph: {
+      ...SHARED_OPEN_GRAPH,
+      images: categoryOgImages(meta.typeId),
+      title,
+      description,
+      url: `/${event}/${relation}`,
+    },
   };
 }
 
@@ -49,7 +60,7 @@ export default async function CombinationPage({ params }: Params) {
 
   const relTitle = relationTitle(event, relation);
   const result = getResult(event, relation);
-  const heading = `Koliko novca dati za ${eventAccusative(event, meta.title)} - ${relTitle}?`;
+  const heading = `Koliko novca dati za ${eventAccusative(event, meta.title)} - ${lowerFirst(relTitle)}?`;
 
   /**
    * On the result page every step is chosen, so each crumb links back to where

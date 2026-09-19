@@ -5,6 +5,7 @@ export type EventType = {
   id: string;
   title: string;
   image: string;
+  ogImage: string;
   fallback: string;
 };
 

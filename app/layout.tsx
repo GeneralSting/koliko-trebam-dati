@@ -1,7 +1,13 @@
 import type { Metadata } from "next";
 import { Schibsted_Grotesk, Hanken_Grotesk } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
-import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from "./lib/site";
+import {
+  SITE_URL,
+  SITE_NAME,
+  SITE_DESCRIPTION,
+  PWA_NAME,
+  SHARED_OPEN_GRAPH,
+} from "./lib/site";
 import "./globals.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
@@ -41,17 +47,17 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    type: "website",
-    locale: "hr_HR",
+    ...SHARED_OPEN_GRAPH,
     url: "/",
-    siteName: SITE_NAME,
     title: "Koliko Trebam Dati? - Kalkulator darivanja",
     description: SITE_DESCRIPTION,
   },
+  /**
+   * No title/description/images here: Next fills them from each page's openGraph,
+   * so every page's share card gets its own title
+   */
   twitter: {
     card: "summary_large_image",
-    title: "Koliko Trebam Dati? - Kalkulator darivanja",
-    description: SITE_DESCRIPTION,
   },
   robots: {
     index: true,
@@ -73,6 +79,8 @@ export const metadata: Metadata = {
     ],
   },
   manifest: "/site.webmanifest",
+  // iOS home-screen label; the manifest covers the same for Android/desktop installs
+  appleWebApp: { title: PWA_NAME },
 };
 
 export default function RootLayout({

@@ -6,24 +6,28 @@ export const EVENT_TYPES: EventType[] = [
     id: "obiteljska-slavlja",
     title: "Obiteljska slavlja i sakramenti",
     image: "/cards/obiteljska-slavlja.webp",
+    ogImage: "/og/obiteljska-slavlja.jpg",
     fallback: "#8C3A63",
   },
   {
     id: "godisnjice-jubileji",
     title: "Rođendani, godišnjice i ljubav",
     image: "/cards/godisnjice-jubileji.webp",
+    ogImage: "/og/godisnjice-jubileji.jpg",
     fallback: "#58101F",
   },
   {
     id: "obrazovanje-karijera",
     title: "Obrazovanje i posao",
     image: "/cards/obrazovanje-karijera.webp",
+    ogImage: "/og/obrazovanje-karijera.jpg",
     fallback: "#182C5E",
   },
   {
     id: "dogadaji",
     title: "Zahvalnice, prekretnice i ostalo",
     image: "/cards/zahvalnice-prekretnice-ostalo.webp",
+    ogImage: "/og/zahvalnice-prekretnice-ostalo.jpg",
     fallback: "#18564C",
   },
 ];

@@ -1,13 +1,12 @@
 import { ImageResponse } from "next/og";
-import { SITE_NAME } from "./lib/site";
+import { OG_IMAGE_ALT, OG_IMAGE_SIZE } from "./lib/site";
 
-// Auto-attached to OG/Twitter tags for every route. Rendered at build time.
-export const alt =
-  "Koliko Trebam Dati? - Kalkulator darivanja za hrvatske prigode";
-export const size = { width: 1200, height: 630 };
+// Rendered at build time. Linked from every page's og:image via SHARED_OPEN_GRAPH
+export const alt = OG_IMAGE_ALT;
+export const size = OG_IMAGE_SIZE;
 export const contentType = "image/png";
 
-// Theme tokens mirrored from globals.css (ImageResponse can't read CSS vars).
+// Theme tokens mirrored from globals.css (ImageResponse can't read CSS vars)
 const PAPER = "#f8f6f2";
 const INK = "#1b1b1f";
 const MUTED = "#6e6e76";
@@ -21,34 +20,13 @@ export default function OpengraphImage() {
         height: "100%",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "space-between",
+        justifyContent: "center",
+        gap: "56px",
         background: PAPER,
         padding: "80px",
         fontFamily: "sans-serif",
       }}
     >
-      <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: "64px",
-            height: "64px",
-            borderRadius: "16px",
-            background: ACCENT,
-            color: "#ffffff",
-            fontSize: "40px",
-            fontWeight: 800,
-          }}
-        >
-          €
-        </div>
-        <div style={{ fontSize: "28px", fontWeight: 700, color: MUTED }}>
-          {SITE_NAME}
-        </div>
-      </div>
-
       <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
         <div
           style={{
