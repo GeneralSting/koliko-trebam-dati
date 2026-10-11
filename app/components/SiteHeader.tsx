@@ -7,12 +7,13 @@ export default function SiteHeader() {
       <header className="animate-fade-up flex flex-col gap-5 border-b border-line pb-7 lg:flex-row lg:items-center lg:gap-14">
         {/* Brand lockup */}
         <div className="flex items-center gap-3">
+          {/** The favicon PNG, not SVG - next/image cannot optimize SVG (it gets served as whole) */}
           <Image
-            src="/favicon.svg"
-            alt="Website logo"
+            src="/favicon-96x96.png"
+            alt=""
             width={46}
             height={46}
-            priority
+            loading="eager"
             className="shrink-0"
           />
           <div>

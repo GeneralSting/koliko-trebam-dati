@@ -16,7 +16,10 @@ export default function FeedbackForm({
   return (
     <div className="flex items-end gap-2.5">
       {/* Input Text Area Wrapper */}
-      <div className="flex-1 overflow-hidden rounded-xl border border-line bg-paper transition-colors focus-within:border-accent">
+      {/* Focus thickens the field's own edge to 2px of accent: the border changes colour and
+          an inset ring adds the second pixel from the inside, so nothing moves and nothing
+          paints outside the box - the collapsing panel above clips that. Matches the search */}
+      <div className="flex-1 overflow-hidden rounded-xl border border-line bg-paper transition-colors focus-within:border-accent focus-within:inset-ring-1 focus-within:inset-ring-accent">
         <textarea
           id="kd-feedback-message"
           ref={textareaRef}

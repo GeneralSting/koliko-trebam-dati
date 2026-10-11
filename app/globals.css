@@ -20,7 +20,13 @@
 
 @keyframes fade-up {
   from {
-    opacity: 0;
+    /**
+     * .01 rather than 0: Chrome refuses to nominate an element that paints fully
+     * transparent as the LCP candidate, so starting at 0 disqualified whichever
+     * element is actually the largest and moved the measurement onto the logo.
+     * Visually indistinguishable from 0 over a 0.46s fade
+     */
+    opacity: 0.01;
     transform: translateY(8px);
   }
   to {

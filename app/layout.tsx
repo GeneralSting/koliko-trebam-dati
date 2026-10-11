@@ -11,10 +11,18 @@ import {
 import "./globals.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
+/**
+ * Both subsets are required: Croatian diacritics (č ć ž š đ) live in latin-ext, which
+ * supplements latin rather than replacing it. What is dropped is the preload link for the
+ * display face - four font files preloaded from the root layout competed with the LCP
+ * image for bandwidth. Headings still render immediately in Next's metric-matched
+ * fallback and swap when the face arrives
+ */
 const schibsted = Schibsted_Grotesk({
   subsets: ["latin", "latin-ext"],
   variable: "--font-schibsted",
   display: "swap",
+  preload: false,
 });
 
 const hanken = Hanken_Grotesk({

@@ -46,12 +46,36 @@ const nextConfig: NextConfig = {
           },
         ],
       },
+      {
+        /**
+         * Everything in public/ is served "max-age=0, must-revalidate" by default, so a
+         * repeat visitor re-checks every image on every page view. Hashed files under
+         * /_next/static/ already get a year and can, because their name changes with their
+         * content; these do not, so a day of freshness with a week of stale-while-revalidate
+         * is the trade - a replaced image is picked up within a day instead of never being
+         * cached at all. The image optimizer passes the upstream value downstream, so this
+         * fixes /_next/image responses too
+         */
+        source: "/:file(.*\\.(?:svg|png|jpg|jpeg|webp|ico))",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=86400, stale-while-revalidate=604800",
+          },
+        ],
+      },
     ];
   },
   images: {
     // Next 16 requires allow-listing qualities (default is [75]). 90 gives the
     // card illustrations noticeably sharper edges; 75 stays available for the rest.
     qualities: [75, 90],
+    /**
+     * Matches the header above, so an optimized image is cached as long as its source
+     * whoever does the optimizing. Next's own optimizer takes the larger of this and the
+     * upstream max-age; Vercel's passes the upstream value through. Default is 14400
+     */
+    minimumCacheTTL: 86400,
   },
 };
 
