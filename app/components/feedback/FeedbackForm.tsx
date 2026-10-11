@@ -18,12 +18,14 @@ export default function FeedbackForm({
       {/* Input Text Area Wrapper */}
       <div className="flex-1 overflow-hidden rounded-xl border border-line bg-paper transition-colors focus-within:border-accent">
         <textarea
+          id="kd-feedback-message"
           ref={textareaRef}
           value={text}
           onChange={onTextChange}
           rows={3}
+          aria-label="Vaša poruka"
           placeholder="Npr. za ovu prigodu ili odnos iznos bi trebao biti veći jer…"
-          className={`block ${isMobileView ? "min-h-36" : "min-h-30"} w-full resize-none bg-transparent px-3.5 py-3 text-sm leading-relaxed text-ink outline-none placeholder:text-muted/70`}
+          className={`block ${isMobileView ? "min-h-36" : "min-h-30"} w-full resize-none bg-transparent px-3.5 py-3 text-sm leading-relaxed text-ink outline-none placeholder:text-muted`}
         />
       </div>
 

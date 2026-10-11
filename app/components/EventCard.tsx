@@ -10,7 +10,7 @@ export default function EventCard({ event, index, onSelect }: EventCardProps) {
       <button
         type="button"
         onClick={onSelect}
-        className="relative aspect-4/5 max-h-80 min-h-60 w-full rounded-2xl text-left shadow-md outline-none transition-shadow duration-200 ease-out hover:shadow-xl focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+        className="relative aspect-4/5 max-h-80 min-h-60 w-full rounded-2xl text-left shadow-md outline-none transition-shadow duration-200 ease-out after:pointer-events-none after:absolute after:-inset-1 after:rounded-[20px] after:border-2 after:border-transparent hover:shadow-xl focus-visible:after:border-accent"
       >
         <Image
           src={event.image}

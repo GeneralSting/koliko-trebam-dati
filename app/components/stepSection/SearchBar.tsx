@@ -10,12 +10,13 @@ export default function SearchBar({ value, onChange }: SearchBarProps) {
         <SearchIcon className="h-5 w-5" />
       </span>
       <input
+        id="kd-event-search"
         type="text"
         value={value}
         onChange={(changeEvent) => onChange(changeEvent.target.value)}
         placeholder="Pretraži događaj (npr. vjenčanje, rođendan, sprovod)…"
         aria-label="Pretraži događaj"
-        className="w-full rounded-xl border border-line bg-surface py-3 pl-11 pr-10 text-sm text-ink shadow-sm outline-none transition-colors placeholder:text-muted/70 focus:border-accent"
+        className="w-full rounded-xl border border-line bg-surface py-3 pl-11 pr-10 text-sm text-ink shadow-sm outline-none transition-colors placeholder:text-muted focus:border-accent focus:inset-ring-1 focus:inset-ring-accent"
       />
       {value && (
         <button

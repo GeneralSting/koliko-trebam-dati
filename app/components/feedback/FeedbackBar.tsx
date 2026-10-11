@@ -16,8 +16,14 @@ export default function FeedbackBar({ feedback }: FeedbackBarProps) {
           onToggle={feedback.handleToggleOpen}
         />
 
+        {/* Collapsing to 0fr only hides the panel visually, so while it is closed the
+            textarea and send button would still be tabbable and readable. "inert" takes
+            the whole subtree out of the tab order and the accessibility tree, matching
+            what the toggle already reports with aria-expanded (same as the mobile dialog) */}
         <div
           id="kd-feedback-panel"
+          inert={!feedback.open}
+          aria-hidden={!feedback.open}
           className="grid transition-[grid-template-rows] duration-300 ease-out"
           style={feedback.panelHeightStyle}
         >
