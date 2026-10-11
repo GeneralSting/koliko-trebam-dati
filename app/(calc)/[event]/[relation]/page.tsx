@@ -117,6 +117,7 @@ export default async function CombinationPage({ params }: Params) {
       <section className="mx-auto w-full max-w-5xl px-6 mt-8">
         <StepBreadcrumb steps={steps} />
         <StepHeader
+          as="h1"
           title={heading}
           desc="Preporuka prilagođena uobičajenim hrvatskim običajima."
         />

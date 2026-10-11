@@ -101,7 +101,7 @@ export default async function EventPage({ params }: Params) {
       <RememberCategory typeId={meta.typeId} />
       <section className="mx-auto w-full max-w-5xl px-6 mt-8">
         <StepBreadcrumb steps={steps} />
-        <StepHeader title={heading} desc={summary} />
+        <StepHeader as="h1" title={heading} desc={summary} />
         <p className="animate-fade-up mb-5 text-sm font-medium text-muted">
           Odaberite svoj odnos s primateljem za točan iznos:
         </p>

@@ -115,6 +115,7 @@ export type ResultCardProps = {
 export type StepHeaderProps = {
   title: string;
   desc: string;
+  as?: "h1" | "h2"; // h1 where the title is the page's own question (event, combination)
 };
 
 export type EventCardProps = {
