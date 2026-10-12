@@ -68,14 +68,8 @@ export const metadata: Metadata = {
     card: "summary_large_image",
   },
   robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
+    "max-image-preview": "large",
+    "max-snippet": -1,
   },
   icons: {
     icon: [
@@ -86,8 +80,8 @@ export const metadata: Metadata = {
       { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
     ],
   },
-  manifest: "/site.webmanifest",
-  // iOS home-screen label; the manifest covers the same for Android/desktop installs
+  // iOS home-screen label; app/manifest.ts covers Android/desktop installs, and Next
+  // links it from every page itself - setting metadata.manifest here would duplicate it
   appleWebApp: { title: PWA_NAME },
 };
 

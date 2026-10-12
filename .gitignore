@@ -41,3 +41,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# front-end-checklist audit skills (vendored tooling, not application code)
+/.agents/
+/.claude/
+/skills-lock.json

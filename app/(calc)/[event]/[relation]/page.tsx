@@ -7,7 +7,12 @@ import {
 } from "@/app/lib/events";
 import { RESULTS, getResult } from "@/app/lib/results";
 import { eventAccusative } from "@/app/lib/eventContent";
-import { SITE_URL, SHARED_OPEN_GRAPH, categoryOgImages } from "@/app/lib/site";
+import {
+  SITE_URL,
+  SITE_NAME,
+  SHARED_OPEN_GRAPH,
+  categoryOgImages,
+} from "@/app/lib/site";
 import { BreadcrumbStep } from "@/app/types";
 import StepHeader from "@/app/components/stepSection/StepHeader";
 import StepBreadcrumb from "@/app/components/StepBreadcrumb";
@@ -76,7 +81,7 @@ export default async function CombinationPage({ params }: Params) {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Početna", item: SITE_URL },
+      { "@type": "ListItem", position: 1, name: SITE_NAME, item: SITE_URL },
       {
         "@type": "ListItem",
         position: 2,

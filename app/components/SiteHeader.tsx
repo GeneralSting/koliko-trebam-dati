@@ -25,15 +25,7 @@ export default function SiteHeader() {
       <header className="animate-fade-up flex flex-col gap-5 border-b border-line pb-7 lg:flex-row lg:items-center lg:gap-14">
         {/* Brand lockup */}
         <div className="flex items-center gap-3">
-          {/**
-           * The favicon PNG, not favicon.svg: that file is a 1024px raster wrapped in an
-           * SVG with no vector paths - 39 KB to draw a 46px mark, and next/image cannot
-           * optimize SVG, so it was served whole. This source is 3.7 KB and the optimizer
-           * returns about 1.2 KB. `loading` replaces the deprecated `priority`; it still
-           * emits a preload link in this version (measured - `preload={false}` does not
-           * suppress it), which is fine at this size. alt is empty because the heading
-           * beside it already says the name, and announcing it twice adds nothing
-           */}
+          {/** The favicon PNG, not SVG - next/image cannot optimize svg (it gets served as whole) */}
           <Image
             src="/favicon-96x96.png"
             alt=""

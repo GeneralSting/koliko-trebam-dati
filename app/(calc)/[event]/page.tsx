@@ -4,7 +4,12 @@ import { ALL_EVENTS, getEventMeta, getRelationOptions } from "@/app/lib/events";
 import { getResult } from "@/app/lib/results";
 import { eventSummary, eventAccusative } from "@/app/lib/eventContent";
 import { STEP_LABELS } from "@/app/lib/steps";
-import { SITE_URL, SHARED_OPEN_GRAPH, categoryOgImages } from "@/app/lib/site";
+import {
+  SITE_URL,
+  SITE_NAME,
+  SHARED_OPEN_GRAPH,
+  categoryOgImages,
+} from "@/app/lib/site";
 import { BreadcrumbStep } from "@/app/types";
 import OptionCard from "@/app/components/stepSection/OptionCard";
 import StepHeader from "@/app/components/stepSection/StepHeader";
@@ -70,7 +75,7 @@ export default async function EventPage({ params }: Params) {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Početna", item: SITE_URL },
+      { "@type": "ListItem", position: 1, name: SITE_NAME, item: SITE_URL },
       {
         "@type": "ListItem",
         position: 2,

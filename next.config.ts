@@ -71,9 +71,10 @@ const nextConfig: NextConfig = {
     // card illustrations noticeably sharper edges; 75 stays available for the rest.
     qualities: [75, 90],
     /**
-     * Matches the header above, so an optimized image is cached as long as its source
-     * whoever does the optimizing. Next's own optimizer takes the larger of this and the
-     * upstream max-age; Vercel's passes the upstream value through. Default is 14400
+     * minimumCacheTTL matches the Cache-Control header above, so an optimized image is
+     * cached as long as its source whoever does the optimizing. Next's own optimizer takes
+     * the larger of this and the upstream max-age; Vercel's passes the upstream value
+     * through. Default is 14400
      */
     minimumCacheTTL: 86400,
   },

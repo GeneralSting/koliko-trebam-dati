@@ -16,8 +16,8 @@ export default function EventCard({ event, index, onSelect }: EventCardProps) {
           src={event.image}
           alt=""
           fill
-          loading="eager"
-          fetchPriority="high"
+          loading={index === 0 ? "eager" : "lazy"}
+          fetchPriority={index === 0 ? "high" : "auto"}
           sizes="(min-width: 1024px) 256px, 50vw"
           quality={90}
           className={"rounded-2xl object-cover -mt-4"}
